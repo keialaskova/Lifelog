@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f4f5f7">
+<meta name="description" content="LIFELOG — your personal life recorder.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>LIFELOG — Your personal life recorder</title>
+<style>
+:root{--bg:#f4f5f7;--surface:#fff;--surface2:#eef1f5;--text:#18212f;--muted:#6b7280;--line:#e3e7ed;--accent:#475569;--accent-soft:#e7ebf0;--green:#16845b;--red:#c24a4a;--shadow:0 8px 28px rgba(20,30,50,.07)}
+[data-theme="dark"]{--bg:#10151d;--surface:#1a2230;--surface2:#222d3d;--text:#f3f5f8;--muted:#a5afbd;--line:#303c4c;--accent:#cbd5e1;--accent-soft:#303b4b;--green:#65c99b;--red:#f08b8b;--shadow:0 8px 28px rgba(0,0,0,.2)}
+[data-theme="original"]{--bg:#eee8dc;--surface:#fbf7ee;--surface2:#e8dfcf;--text:#3c3429;--muted:#7b705f;--line:#ded3c1;--accent:#79664a;--accent-soft:#e8dfcf;--green:#477c5a;--red:#b45d50;--shadow:0 8px 28px rgba(70,55,30,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;transition:background .2s,color .2s}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:760px;margin:auto;min-height:100dvh;padding:env(safe-area-inset-top) 14px calc(84px + env(safe-area-inset-bottom))}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 2px 12px}.brand{font-size:22px;font-weight:850;letter-spacing:.08em}.subbrand{font-size:11px;color:var(--muted)}.iconbtn{border:1px solid var(--line);background:var(--surface);color:var(--text);width:42px;height:42px;border-radius:14px}
+h1{font-size:27px;line-height:1.15;margin:8px 0 4px}h2{font-size:17px;margin:0 0 12px}h3{font-size:15px;margin:0}.muted{color:var(--muted)}.small{font-size:12px}.section{margin:18px 0}.card{background:var(--surface);border:1px solid var(--line);border-radius:19px;padding:15px;box-shadow:var(--shadow)}.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.metric{background:var(--surface2);border-radius:14px;padding:12px 9px}.metric .emoji{font-size:20px}.metric strong{display:block;font-size:20px;margin-top:3px}.metric span{font-size:11px;color:var(--muted)}
+.category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.category{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:17px;padding:14px;text-align:left;min-height:104px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:7px}.category:active,.nav button:active{transform:scale(.98)}.category .emoji{font-size:24px}.category b{font-size:14px}.category small{font-size:11px;color:var(--muted)}
+.sleep-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.sleepbtn{background:var(--surface);border:1px solid var(--line);border-radius:17px;padding:14px;text-align:left;color:var(--text);box-shadow:var(--shadow)}.sleepbtn b{display:block;margin:7px 0 2px}.sleepbtn small{color:var(--muted)}
+.nav{position:fixed;z-index:5;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--line);padding:9px 8px calc(9px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);max-width:760px;margin:auto}.nav button{border:0;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;padding:5px 0}.nav button.active{color:var(--text);font-weight:800}.nav .navicon{font-size:19px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.stack{display:flex;flex-direction:column;gap:9px}.listitem{display:flex;align-items:center;gap:11px;padding:12px 0;border-bottom:1px solid var(--line)}.listitem:last-child{border:0}.listicon{width:40px;height:40px;border-radius:13px;background:var(--surface2);display:grid;place-items:center;font-size:19px;flex:none}.grow{flex:1;min-width:0}.amount{font-weight:800}.positive{color:var(--green)}.negative{color:var(--red)}
+.primary{background:var(--text);color:var(--bg);border:0;border-radius:13px;padding:12px 16px;font-weight:750}.secondary{background:var(--surface2);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:10px 13px;font-weight:650}.danger{color:var(--red);border:1px solid var(--line);background:var(--surface);border-radius:11px;padding:8px 10px}.full{width:100%}
+.field{display:flex;flex-direction:column;gap:6px;margin:12px 0}.field label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select,.field textarea,.search{width:100%;border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:12px;padding:11px 12px;outline:none}.field textarea{min-height:72px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus,.search:focus{border-color:var(--accent)}
+.modalback{position:fixed;inset:0;background:rgba(5,10,20,.55);z-index:10;display:none;align-items:flex-end;justify-content:center;padding:12px}.modalback.show{display:flex}.modal{background:var(--surface);color:var(--text);width:min(100%,560px);max-height:88dvh;overflow:auto;border-radius:23px;padding:19px;box-shadow:0 20px 60px #0004}.modalhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.close{border:0;background:var(--surface2);color:var(--text);width:34px;height:34px;border-radius:50%}
+.page{display:none}.page.active{display:block}.pill{background:var(--surface2);border-radius:99px;padding:6px 10px;font-size:11px;color:var(--muted)}.wallet-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.wallet{background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:13px}.wallet strong{display:block;font-size:18px;margin-top:7px}.tabs{display:flex;gap:7px;overflow:auto;margin:12px 0}.tabs button{white-space:nowrap}.empty{text-align:center;padding:26px 10px;color:var(--muted)}.empty .emoji{font-size:30px;margin-bottom:7px}
+.toast{position:fixed;z-index:20;left:50%;bottom:90px;transform:translateX(-50%);background:#18212f;color:#fff;padding:11px 16px;border-radius:99px;font-size:13px;display:none;box-shadow:var(--shadow)}.toast.show{display:block}
+hr{border:0;border-top:1px solid var(--line);margin:13px 0}.inline-actions{display:flex;gap:8px;flex-wrap:wrap}.hidden{display:none!important}
+@media(min-width:650px){.category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.app{padding-left:22px;padding-right:22px}.modalback{align-items:center}}
+</style>
+</head>
+<body data-theme="light">
+<div class="app">
+<header><div><div class="brand">LIFELOG</div><div class="subbrand">YOUR PERSONAL LIFE RECORDER</div></div><button class="iconbtn" onclick="showPage('settings')" aria-label="Settings">⚙️</button></header>
+
+<main>
+<section id="page-home" class="page active">
+  <div class="row"><div><h1 id="greeting">Welcome!</h1><div class="muted small" id="todayLabel"></div></div><span class="pill">Today</span></div>
+  <div class="section card"><h2>Today at a glance</h2><div class="summary-grid">
+    <div class="metric"><div class="emoji">🌙</div><strong id="sleepMetric">—</strong><span>Sleep</span></div>
+    <div class="metric"><div class="emoji">🍽️</div><strong id="mealMetric">0</strong><span>Meals</span></div>
+    <div class="metric"><div class="emoji">✨</div><strong id="activityMetric">0</strong><span>Activities</span></div>
+  </div></div>
+  <div class="section"><h2>Sleep & Rest</h2><div class="sleep-grid">
+    <button class="sleepbtn" onclick="openRecord('Sleep')"><span class="emoji">🌙</span><b>Sleep</b><small>Record bedtime</small></button>
+    <button class="sleepbtn" onclick="openRecord('Wake Up')"><span class="emoji">🌅</span><b>Wake Up</b><small>Record waking time</small></button>
+  </div></div>
+  <div class="section"><h2>Daily Life Categories</h2><div class="category-grid" id="categoryGrid"></div></div>
+</section>
+
+<section id="page-money" class="page">
+  <h1>Money</h1><p class="muted small">Your wallets, income and expenses.</p>
+  <div class="card section"><div class="muted small">TOTAL WALLET BALANCE</div><h1 id="totalBalance">₱0.00</h1><div class="row"><span class="positive" id="incomeTotal">Income ₱0</span><span class="negative" id="expenseTotal">Expenses ₱0</span></div></div>
+  <div class="row section"><h2>My Wallets</h2><button class="secondary" onclick="addWallet()">＋ Add wallet</button></div>
+  <div class="wallet-grid" id="walletGrid"></div>
+  <div class="inline-actions section"><button class="primary" onclick="openMoney('in')">＋ Cash In</button><button class="secondary" onclick="openMoney('out')">－ Cash Out</button><button class="secondary" onclick="openMoney('transfer')">⇄ Transfer</button></div>
+  <div class="section card"><h2>Recent transactions</h2><div id="recentMoney"></div></div>
+</section>
+
+<section id="page-history" class="page">
+  <h1>Life History</h1><p class="muted small">Find, review and edit your records.</p>
+  <input class="search" id="historySearch" placeholder="Search your records..." oninput="renderHistory()">
+  <div class="tabs"><select id="historyFilter" onchange="renderHistory()" class="search" style="width:auto"><option value="all">All categories</option></select><input type="date" id="historyDate" class="search" style="width:auto" onchange="renderHistory()"></div>
+  <div class="card" id="historyList"></div>
+</section>
+
+<section id="page-reports" class="page">
+  <h1>Reports</h1><p class="muted small">A simple overview of your recorded life.</p>
+  <div class="card section"><h2>Activity overview</h2><div class="summary-grid">
+    <div class="metric"><strong id="reportRecords">0</strong><span>Records</span></div><div class="metric"><strong id="reportMeals">0</strong><span>Meals</span></div><div class="metric"><strong id="reportTrips">0</strong><span>Trips</span></div>
+  </div></div>
+  <div class="card section"><h2>Money summary</h2><div class="row"><span class="muted">Money in</span><b class="positive" id="reportIn">₱0</b></div><hr><div class="row"><span class="muted">Money out</span><b class="negative" id="reportOut">₱0</b></div></div>
+  <div class="card section"><h2>Records by category</h2><div id="categoryStats"></div></div>
+</section>
+
+<section id="page-settings" class="page">
+  <h1>Settings</h1><p class="muted small">Make LIFELOG yours.</p>
+  <div class="card section">
+    <h2>Profile & greeting</h2><div class="field"><label>Your name</label><input id="nameInput" placeholder="Enter your name"></div><button class="primary" onclick="saveName()">Save name</button>
+  </div>
+  <div class="card section">
+    <h2>Appearance</h2><div class="field"><label>Choose a theme</label><select id="themeSelect" onchange="setTheme(this.value)"><option value="light">Light</option><option value="dark">Dark</option><option value="original">Original</option></select></div>
+  </div>
+  <div class="card section">
+    <h2>Manage categories</h2><div id="manageCategories"></div><div class="field"><label>New category name</label><input id="newCategory" placeholder="e.g. Gardening"></div><button class="secondary" onclick="addCategory()">＋ Add category</button>
+  </div>
+  <div class="card section">
+    <h2>Backup & export</h2><p class="muted small">Download a copy of your LIFELOG data as a JSON backup.</p><button class="primary" onclick="exportData()">Export backup</button>
+  </div>
+  <div class="card section"><h2>About</h2><p class="muted small">LIFELOG Version 1. Your records are stored in this browser on this device. Export backups regularly.</p></div>
+</section>
+</main>
+</div>
+
+<nav class="nav">
+<button class="active" data-page="home" onclick="showPage('home')"><span class="navicon">⌂</span>Home</button>
+<button data-page="money" onclick="showPage('money')"><span class="navicon">₱</span>Money</button>
+<button data-page="history" onclick="showPage('history')"><span class="navicon">◷</span>History</button>
+<button data-page="reports" onclick="showPage('reports')"><span class="navicon">▥</span>Reports</button>
+<button data-page="settings" onclick="showPage('settings')"><span class="navicon">⚙</span>Settings</button>
+</nav>
+
+<div class="modalback" id="modalBack" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="modalhead"><h2 id="modalTitle">New record</h2><button class="close" onclick="closeModal()">✕</button></div><form id="recordForm" onsubmit="saveRecord(event)"><div id="modalFields"></div><button class="primary full" type="submit">Submit & save</button></form></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const DEFAULT_CATEGORIES=[
+ {name:"Meals & Drinks",icon:"🍽️",desc:"Food and beverages"},
+ {name:"Travel",icon:"🛵",desc:"Rides and transportation"},
+ {name:"Activities",icon:"✨",desc:"Everything you do"},
+ {name:"Daily Tasks",icon:"☑️",desc:"Things completed"},
+ {name:"Health & Personal Care",icon:"💚",desc:"Exercise and routines"},
+ {name:"Social Life",icon:"👥",desc:"Family and friends"},
+ {name:"Learning",icon:"📚",desc:"Reading and studying"},
+ {name:"Others",icon:"✳️",desc:"Anything else"}
+];
+const KEY="lifelog_v1_data";
+let data=loadData(), editingId=null, currentKind=null;
+function loadData(){try{return JSON.parse(localStorage.getItem(KEY))||{name:"",theme:"light",records:[],transactions:[],wallets:["Cash","GCash","Bank"],categories:DEFAULT_CATEGORIES};}catch(e){return {name:"",theme:"light",records:[],transactions:[],wallets:["Cash","GCash","Bank"],categories:DEFAULT_CATEGORIES};}}
+function persist(){localStorage.setItem(KEY,JSON.stringify(data));renderAll();}
+function nowLocal(){const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,16);}
+function money(n){return "₱"+Number(n||0).toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2});}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200);}
+function showPage(p){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById("page-"+p).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.page===p));renderAll();window.scrollTo(0,0);}
+function setTheme(v){data.theme=v;document.body.dataset.theme=v;localStorage.setItem(KEY,JSON.stringify(data));}
+function saveName(){data.name=document.getElementById("nameInput").value.trim();persist();toast("Name saved");}
+function greeting(){const h=new Date().getHours();return (h<12?"Good morning":h<18?"Good afternoon":"Good evening")+(data.name?", "+data.name:"") +"!";}
+function dateLabel(){return new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"});}
+function renderHome(){
+ document.getElementById("greeting").textContent=greeting();document.getElementById("todayLabel").textContent=dateLabel();
+ const today=new Date().toISOString().slice(0,10), r=data.records.filter(x=>(x.dateTime||"").slice(0,10)===today);
+ document.getElementById("mealMetric").textContent=r.filter(x=>x.category==="Meals & Drinks").length;
+ document.getElementById("activityMetric").textContent=r.filter(x=>["Activities","Daily Tasks","Travel","Health & Personal Care","Social Life","Learning","Others"].includes(x.category)).length;
+ const sleep=r.filter(x=>x.category==="Sleep").sort((a,b)=>b.dateTime.localeCompare(a.dateTime))[0];
+ const wake=r.filter(x=>x.category==="Wake Up").sort((a,b)=>b.dateTime.localeCompare(a.dateTime))[0];
+ let dur="—";if(sleep&&wake){let ms=new Date(wake.dateTime)-new Date(sleep.dateTime);if(ms>0)dur=(ms/3600000).toFixed(1)+"h";}
+ document.getElementById("sleepMetric").textContent=dur;
+ document.getElementById("categoryGrid").innerHTML=data.categories.filter(c=>c.visible!==false).map(c=>`<button class="category" onclick="openRecord('${esc(c.name)}')"><span class="emoji">${c.icon||"✳️"}</span><b>${esc(c.name)}</b><small>${esc(c.desc||"Tap to record")}</small></button>`).join("");
+}
+function field(label,name,type="text",value="",extra=""){return `<div class="field"><label>${label}</label><input name="${name}" type="${type}" value="${esc(value)}" ${extra}></div>`;}
+function selectField(label,name,options,value=""){return `<div class="field"><label>${label}</label><select name="${name}">${options.map(o=>`<option ${o===value?"selected":""}>${esc(o)}</option>`).join("")}</select></div>`;}
+function openRecord(category,id=null){
+ editingId=id;currentKind=category;const old=id?data.records.find(x=>x.id===id):null;
+ document.getElementById("modalTitle").textContent=(old?"Edit ":"Record ")+category;
+ let dt=old?.dateTime||nowLocal(), html=field("Date & time","dateTime","datetime-local",dt,'required');
+ if(category==="Sleep"||category==="Wake Up"){html+=`<div class="field"><label>Note (optional)</label><input name="note" value="${esc(old?.note||"")}" placeholder="Add a note"></div>`;}
+ else if(category==="Meals & Drinks"){html+=selectField("Meal type","detail",["Breakfast","Lunch","Dinner","Snack","Drink","Other"],old?.detail||"Breakfast")+field("Cost (optional)","amount","number",old?.amount??"",'min="0" step="0.01" placeholder="Leave blank if no cost"')+selectField("Paid from (optional)","wallet",data.wallets,old?.wallet||data.wallets[0]);}
+ else if(category==="Travel"){html+=selectField("Transport","detail",["Motorcycle","Jeepney","Tricycle","Bus","Taxi","Walking","Personal vehicle","Other"],old?.detail||"Motorcycle")+field("Destination (optional)","destination","text",old?.destination||"",'placeholder="Where did you go?"')+field("Fare / cost (optional)","amount","number",old?.amount??"",'min="0" step="0.01" placeholder="Leave blank if free or unknown"')+selectField("Paid from (optional)","wallet",data.wallets,old?.wallet||data.wallets[0]);}
+ else if(category==="Daily Tasks"){html+=field("Task","detail","text",old?.detail||"",'required placeholder="What did you do?"')+selectField("Status","status",["Completed","Pending"],old?.status||"Completed");}
+ else {html+=field(category==="Activities"?"Activity name":"Description","detail","text",old?.detail||"",'required placeholder="What happened?"')+field("End time (optional)","endTime","datetime-local",old?.endTime||"")+`<div class="field"><label>Notes (optional)</label><textarea name="note">${esc(old?.note||"")}</textarea></div>`;}
+ document.getElementById("modalFields").innerHTML=html;document.getElementById("recordForm").onsubmit=saveRecord;document.getElementById("modalBack").classList.add("show");
+}
+function closeModal(){document.getElementById("modalBack").classList.remove("show");editingId=null;}
+function makeId(){return (crypto&&crypto.randomUUID)?crypto.randomUUID():"id-"+Date.now()+"-"+Math.random().toString(16).slice(2);}
+function saveRecord(e){
+ e.preventDefault();
+ const f=new FormData(e.target), old=editingId?data.records.find(x=>x.id===editingId):null;
+ const obj={id:editingId||makeId(),category:currentKind,dateTime:f.get("dateTime"),detail:f.get("detail")||"",amount:f.get("amount")?Number(f.get("amount")):null,wallet:f.get("wallet")||"",destination:f.get("destination")||"",status:f.get("status")||"",endTime:f.get("endTime")||"",note:f.get("note")||"",expenseTransactionId:old?.expenseTransactionId||null};
+ // Meal and travel costs are optional. If supplied, they also appear in Money as an expense.
+ if(obj.amount && obj.wallet){
+   const tid=obj.expenseTransactionId||makeId();
+   const tx={id:tid,type:"out",amount:obj.amount,dateTime:obj.dateTime,wallet:obj.wallet,note:(obj.category+": "+(obj.detail||obj.destination||"expense")),sourceRecordId:obj.id};
+   const ix=data.transactions.findIndex(t=>t.id===tid);
+   if(ix>=0)data.transactions[ix]=tx;else data.transactions.push(tx);
+   obj.expenseTransactionId=tid;
+ }else if(obj.expenseTransactionId){
+   data.transactions=data.transactions.filter(t=>t.id!==obj.expenseTransactionId);
+   obj.expenseTransactionId=null;
+ }
+ if(editingId){data.records=data.records.map(x=>x.id===editingId?obj:x);}else{data.records.push(obj);}
+ closeModal();persist();toast("Record saved");
+}
+function balances(){const b={};data.wallets.forEach(w=>b[w]=Number((data.walletOpening||{})[w]||0));data.transactions.forEach(t=>{if(t.type==="in")b[t.wallet]=(b[t.wallet]||0)+t.amount;if(t.type==="out")b[t.wallet]=(b[t.wallet]||0)-t.amount;if(t.type==="transfer"){b[t.from]=(b[t.from]||0)-t.amount;b[t.to]=(b[t.to]||0)+t.amount;}});return b;}
+function openMoney(type){currentKind="money";editingId=null;const wallets=data.wallets;let html=field("Date & time","dateTime","datetime-local",nowLocal(),"required")+field("Amount","amount","number","","required min=\"0.01\" step=\"0.01\"");
+ if(type==="transfer"){html+=selectField("From wallet","from",wallets,wallets[0])+selectField("To wallet","to",wallets,wallets[1]||wallets[0]);}else{html+=selectField("Wallet", "wallet",wallets,wallets[0]);}
+ html+=`<div class="field"><label>Note (optional)</label><input name="note" placeholder="Add a note"></div>`;
+ document.getElementById("modalTitle").textContent=type==="in"?"Cash In":type==="out"?"Cash Out":"Transfer";
+ document.getElementById("modalFields").innerHTML=html;document.getElementById("recordForm").onsubmit=(e)=>saveMoney(e,type);document.getElementById("modalBack").classList.add("show");
+}
+function saveMoney(e,type){e.preventDefault();const f=new FormData(e.target);const t={id:crypto.randomUUID(),type,amount:Number(f.get("amount")),dateTime:f.get("dateTime"),wallet:f.get("wallet")||"",from:f.get("from")||"",to:f.get("to")||"",note:f.get("note")||""};if(type==="transfer"&&t.from===t.to){toast("Choose two different wallets");return;}data.transactions.push(t);closeModal();document.getElementById("recordForm").onsubmit=saveRecord;persist();toast("Transaction saved");}
+function addWallet(){const n=prompt("Name your new wallet (e.g. Maya):");if(n&&n.trim()&&!data.wallets.includes(n.trim())){data.wallets.push(n.trim());data.walletOpening=data.walletOpening||{};const opening=prompt("Opening balance for "+n.trim()+" (enter 0 if none):","0");data.walletOpening[n.trim()]=Math.max(0,Number(opening)||0);persist();toast("Wallet added");}}
+function renderMoney(){const b=balances(),total=Object.values(b).reduce((a,x)=>a+x,0),ins=data.transactions.filter(x=>x.type==="in").reduce((a,x)=>a+x.amount,0),outs=data.transactions.filter(x=>x.type==="out").reduce((a,x)=>a+x.amount,0);document.getElementById("totalBalance").textContent=money(total);document.getElementById("incomeTotal").textContent="Income "+money(ins);document.getElementById("expenseTotal").textContent="Expenses "+money(outs);
+ document.getElementById("walletGrid").innerHTML=data.wallets.map(w=>`<div class="wallet"><span class="muted small">◈ ${esc(w)}</span><strong>${money(b[w]||0)}</strong></div>`).join("");
+ const tx=[...data.transactions].sort((a,b)=>b.dateTime.localeCompare(a.dateTime)).slice(0,5);document.getElementById("recentMoney").innerHTML=tx.length?tx.map(t=>`<div class="listitem"><div class="listicon">💸</div><div class="grow"><b>${t.type==="in"?"Cash In":t.type==="out"?"Cash Out":"Transfer"}</b><div class="muted small">${esc(t.dateTime.replace("T"," "))} · ${esc(t.wallet||t.from+" → "+t.to)}</div></div><b class="${t.type==="in"?"positive":t.type==="out"?"negative":""}">${t.type==="in"?"+":t.type==="out"?"−":""}${money(t.amount)}</b></div>`).join(""):'<div class="empty">No transactions yet.</div>';
+}
+function renderHistory(){const q=(document.getElementById("historySearch").value||"").toLowerCase(),cat=document.getElementById("historyFilter").value,date=document.getElementById("historyDate").value;const all=[...data.records.map(x=>({...x,kind:"record"})),...data.transactions.map(x=>({...x,kind:"money",category:"Money",detail:x.type==="in"?"Cash In":x.type==="out"?"Cash Out":"Transfer"}))].sort((a,b)=>b.dateTime.localeCompare(a.dateTime));const filtered=all.filter(x=>(cat==="all"||x.category===cat)&&(!date||x.dateTime.slice(0,10)===date)&&(`${x.category} ${x.detail} ${x.note} ${x.destination||""}`).toLowerCase().includes(q));document.getElementById("historyList").innerHTML=filtered.length?filtered.map(x=>`<div class="listitem"><div class="listicon">${x.kind==="money"?"💸":(data.categories.find(c=>c.name===x.category)?.icon||"✳️")}</div><div class="grow"><b>${esc(x.detail||x.category)}</b><div class="muted small">${esc(x.category)} · ${esc(x.dateTime.replace("T"," "))}</div>${x.amount?`<div class="small">${money(x.amount)}</div>`:""}</div>${x.kind==="record"?`<button class="secondary" onclick="openRecord('${esc(x.category)}','${x.id}')">Edit</button><button class="danger" onclick="deleteRecord('${x.id}')">×</button>`:"<span class=\"pill\">Money</span>"}</div>`).join(""):'<div class="empty"><div class="emoji">🗂️</div>No matching records yet.</div>';}
+function deleteRecord(id){if(confirm("Delete this record?")){const rec=data.records.find(x=>x.id===id);if(rec?.expenseTransactionId)data.transactions=data.transactions.filter(t=>t.id!==rec.expenseTransactionId);data.records=data.records.filter(x=>x.id!==id);persist();toast("Record deleted");}}
+function renderReports(){document.getElementById("reportRecords").textContent=data.records.length;document.getElementById("reportMeals").textContent=data.records.filter(x=>x.category==="Meals & Drinks").length;document.getElementById("reportTrips").textContent=data.records.filter(x=>x.category==="Travel").length;document.getElementById("reportIn").textContent=money(data.transactions.filter(x=>x.type==="in").reduce((a,x)=>a+x.amount,0));document.getElementById("reportOut").textContent=money(data.transactions.filter(x=>x.type==="out").reduce((a,x)=>a+x.amount,0));document.getElementById("categoryStats").innerHTML=data.categories.map(c=>`<div class="row" style="padding:7px 0"><span>${c.icon} ${esc(c.name)}</span><b>${data.records.filter(r=>r.category===c.name).length}</b></div>`).join("");}
+function addCategory(){const n=document.getElementById("newCategory").value.trim();if(!n)return;if(data.categories.some(c=>c.name.toLowerCase()===n.toLowerCase())){toast("Category already exists");return;}data.categories.push({name:n,icon:"✳️",desc:"Custom category"});document.getElementById("newCategory").value="";persist();toast("Category added");}
+function deleteCategory(n){if(confirm("Hide/delete this category? Existing records will remain in History.")){data.categories=data.categories.filter(c=>c.name!==n);persist();}}
+function renderSettings(){document.getElementById("nameInput").value=data.name||"";document.getElementById("themeSelect").value=data.theme||"light";document.getElementById("manageCategories").innerHTML=data.categories.map(c=>`<div class="row" style="padding:7px 0"><span>${c.icon} ${esc(c.name)}</span><button class="danger" onclick="deleteCategory('${esc(c.name)}')">Remove</button></div>`).join("");}
+function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="lifelog-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();URL.revokeObjectURL(url);toast("Backup downloaded");}
+function renderAll(){document.body.dataset.theme=data.theme||"light";renderHome();renderMoney();renderHistory();renderReports();renderSettings();const filter=document.getElementById("historyFilter");const current=filter.value;filter.innerHTML='<option value="all">All categories</option>'+data.categories.map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("")+'<option value="Money">Money</option>';filter.value=current||"all";}
+function init(){document.getElementById("recordForm").onsubmit=saveRecord;renderAll();if(!data.name){setTimeout(()=>{const n=prompt("Welcome to LIFELOG! What should we call you?");if(n&&n.trim()){data.name=n.trim();persist();}},350);}if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./service-worker.js").catch(()=>{});}
+init();
+</script>
+</body></html>
