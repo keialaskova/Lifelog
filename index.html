@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="LIFELOG">
+<link rel="apple-touch-icon" href="icon-192.png">
 <meta name="theme-color" content="#f4f5f7">
 <meta name="description" content="LIFELOG — your personal life recorder.">
 <link rel="manifest" href="manifest.webmanifest">
@@ -12,7 +16,7 @@
 :root{--bg:#f4f5f7;--surface:#fff;--surface2:#eef1f5;--text:#18212f;--muted:#6b7280;--line:#e3e7ed;--accent:#475569;--accent-soft:#e7ebf0;--green:#16845b;--red:#c24a4a;--shadow:0 8px 28px rgba(20,30,50,.07)}
 [data-theme="dark"]{--bg:#10151d;--surface:#1a2230;--surface2:#222d3d;--text:#f3f5f8;--muted:#a5afbd;--line:#303c4c;--accent:#cbd5e1;--accent-soft:#303b4b;--green:#65c99b;--red:#f08b8b;--shadow:0 8px 28px rgba(0,0,0,.2)}
 [data-theme="original"]{--bg:#eee8dc;--surface:#fbf7ee;--surface2:#e8dfcf;--text:#3c3429;--muted:#7b705f;--line:#ded3c1;--accent:#79664a;--accent-soft:#e8dfcf;--green:#477c5a;--red:#b45d50;--shadow:0 8px 28px rgba(70,55,30,.08)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;transition:background .2s,color .2s}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;transition:background .2s,color .2s;zoom:var(--ui-zoom,1)}
 button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:760px;margin:auto;min-height:100dvh;padding:env(safe-area-inset-top) 14px calc(84px + env(safe-area-inset-bottom))}
 header{display:flex;justify-content:space-between;align-items:center;padding:18px 2px 12px}.brand{font-size:22px;font-weight:850;letter-spacing:.08em}.subbrand{font-size:11px;color:var(--muted)}.iconbtn{border:1px solid var(--line);background:var(--surface);color:var(--text);width:42px;height:42px;border-radius:14px}
 h1{font-size:27px;line-height:1.15;margin:8px 0 4px}h2{font-size:17px;margin:0 0 12px}h3{font-size:15px;margin:0}.muted{color:var(--muted)}.small{font-size:12px}.section{margin:18px 0}.card{background:var(--surface);border:1px solid var(--line);border-radius:19px;padding:15px;box-shadow:var(--shadow)}.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.metric{background:var(--surface2);border-radius:14px;padding:12px 9px}.metric .emoji{font-size:20px}.metric strong{display:block;font-size:20px;margin-top:3px}.metric span{font-size:11px;color:var(--muted)}
@@ -82,12 +86,15 @@ hr{border:0;border-top:1px solid var(--line);margin:13px 0}.inline-actions{displ
     <h2>Appearance</h2><div class="field"><label>Choose a theme</label><select id="themeSelect" onchange="setTheme(this.value)"><option value="light">Light</option><option value="dark">Dark</option><option value="original">Original</option></select></div>
   </div>
   <div class="card section">
+    <h2>Text adjustment</h2><div class="field"><label>App text size</label><select id="textSizeSelect" onchange="setTextSize(this.value)"><option value="small">Small</option><option value="medium">Medium (Default)</option><option value="large">Large</option><option value="extra-large">Extra large</option></select></div><p class="muted small">Changes the overall interface size on this device.</p>
+  </div>
+  <div class="card section">
     <h2>Manage categories</h2><div id="manageCategories"></div><div class="field"><label>New category name</label><input id="newCategory" placeholder="e.g. Gardening"></div><button class="secondary" onclick="addCategory()">＋ Add category</button>
   </div>
   <div class="card section">
-    <h2>Backup & export</h2><p class="muted small">Download a copy of your LIFELOG data as a JSON backup.</p><button class="primary" onclick="exportData()">Export backup</button>
+    <h2>Backup & restore</h2><p class="muted small">Download a copy of your LIFELOG data or restore a previous LIFELOG JSON backup.</p><div class="inline-actions"><button class="primary" onclick="exportData()">Export backup</button><button class="secondary" onclick="document.getElementById('restoreFile').click()">Restore backup</button></div><input id="restoreFile" class="hidden" type="file" accept="application/json,.json" onchange="restoreData(event)"><p class="muted small">Restoring replaces the records currently stored in this browser. Export a backup first.</p>
   </div>
-  <div class="card section"><h2>About</h2><p class="muted small">LIFELOG Version 1. Your records are stored in this browser on this device. Export backups regularly.</p></div>
+  <div class="card section"><h2>About</h2><p class="muted small">LIFELOG Version 2.0. Your records are stored in this browser on this device. Export backups regularly.</p></div>
 </section>
 </main>
 </div>
@@ -116,6 +123,12 @@ const DEFAULT_CATEGORIES=[
 ];
 const KEY="lifelog_v1_data";
 let data=loadData(), editingId=null, currentKind=null;
+// Requested category update: migrate the built-in Learning category to Working once.
+if(data.categories.some(c=>c.name==="Learning")&&!data.categories.some(c=>c.name==="Working")){
+ const learning=data.categories.find(c=>c.name==="Learning");learning.name="Working";learning.icon="💼";learning.desc="Work and professional activities";
+ data.records.forEach(r=>{if(r.category==="Learning")r.category="Working";});
+ try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}
+}
 function loadData(){try{return JSON.parse(localStorage.getItem(KEY))||{name:"",theme:"light",records:[],transactions:[],wallets:["Cash","GCash","Bank"],categories:DEFAULT_CATEGORIES};}catch(e){return {name:"",theme:"light",records:[],transactions:[],wallets:["Cash","GCash","Bank"],categories:DEFAULT_CATEGORIES};}}
 function persist(){localStorage.setItem(KEY,JSON.stringify(data));renderAll();}
 function nowLocal(){const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,16);}
@@ -124,6 +137,8 @@ function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&l
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200);}
 function showPage(p){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById("page-"+p).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.page===p));renderAll();window.scrollTo(0,0);}
 function setTheme(v){data.theme=v;document.body.dataset.theme=v;localStorage.setItem(KEY,JSON.stringify(data));}
+function setTextSize(v){data.textSize=v;applyTextSize();localStorage.setItem(KEY,JSON.stringify(data));toast("Text size updated");}
+function applyTextSize(){const z={small:0.92,medium:1,large:1.10,"extra-large":1.20}[data.textSize||"medium"];document.body.style.setProperty("--ui-zoom",z);}
 function saveName(){data.name=document.getElementById("nameInput").value.trim();persist();toast("Name saved");}
 function greeting(){const h=new Date().getHours();return (h<12?"Good morning":h<18?"Good afternoon":"Good evening")+(data.name?", "+data.name:"") +"!";}
 function dateLabel(){return new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"});}
@@ -145,7 +160,7 @@ function openRecord(category,id=null){
  document.getElementById("modalTitle").textContent=(old?"Edit ":"Record ")+category;
  let dt=old?.dateTime||nowLocal(), html=field("Date & time","dateTime","datetime-local",dt,'required');
  if(category==="Sleep"||category==="Wake Up"){html+=`<div class="field"><label>Note (optional)</label><input name="note" value="${esc(old?.note||"")}" placeholder="Add a note"></div>`;}
- else if(category==="Meals & Drinks"){html+=selectField("Meal type","detail",["Breakfast","Lunch","Dinner","Snack","Drink","Other"],old?.detail||"Breakfast")+field("Cost (optional)","amount","number",old?.amount??"",'min="0" step="0.01" placeholder="Leave blank if no cost"')+selectField("Paid from (optional)","wallet",data.wallets,old?.wallet||data.wallets[0]);}
+ else if(category==="Meals & Drinks"){html+=selectField("Meal type","mealType",["Breakfast","Lunch","Dinner","Snack","Drink","Other"],old?.mealType||(["Breakfast","Lunch","Dinner","Snack","Drink","Other"].includes(old?.detail)?old.detail:"Breakfast"))+field("What did you eat or drink?","detail","text",old?.mealDescription||(!["Breakfast","Lunch","Dinner","Snack","Drink","Other"].includes(old?.detail)?old?.detail:""),'placeholder="e.g. rice and chicken, coffee, water"')+field("Cost (optional)","amount","number",old?.amount??"",'min="0" step="0.01" placeholder="Leave blank if no cost"')+selectField("Paid from (optional)","wallet",data.wallets,old?.wallet||data.wallets[0])+`<div class="field"><label>Notes (optional)</label><textarea name="note">${esc(old?.note||"")}</textarea></div>`;}
  else if(category==="Travel"){html+=selectField("Transport","detail",["Motorcycle","Jeepney","Tricycle","Bus","Taxi","Walking","Personal vehicle","Other"],old?.detail||"Motorcycle")+field("Destination (optional)","destination","text",old?.destination||"",'placeholder="Where did you go?"')+field("Fare / cost (optional)","amount","number",old?.amount??"",'min="0" step="0.01" placeholder="Leave blank if free or unknown"')+selectField("Paid from (optional)","wallet",data.wallets,old?.wallet||data.wallets[0]);}
  else if(category==="Daily Tasks"){html+=field("Task","detail","text",old?.detail||"",'required placeholder="What did you do?"')+selectField("Status","status",["Completed","Pending"],old?.status||"Completed");}
  else {html+=field(category==="Activities"?"Activity name":"Description","detail","text",old?.detail||"",'required placeholder="What happened?"')+field("End time (optional)","endTime","datetime-local",old?.endTime||"")+`<div class="field"><label>Notes (optional)</label><textarea name="note">${esc(old?.note||"")}</textarea></div>`;}
@@ -156,7 +171,7 @@ function makeId(){return (crypto&&crypto.randomUUID)?crypto.randomUUID():"id-"+D
 function saveRecord(e){
  e.preventDefault();
  const f=new FormData(e.target), old=editingId?data.records.find(x=>x.id===editingId):null;
- const obj={id:editingId||makeId(),category:currentKind,dateTime:f.get("dateTime"),detail:f.get("detail")||"",amount:f.get("amount")?Number(f.get("amount")):null,wallet:f.get("wallet")||"",destination:f.get("destination")||"",status:f.get("status")||"",endTime:f.get("endTime")||"",note:f.get("note")||"",expenseTransactionId:old?.expenseTransactionId||null};
+ const obj={id:editingId||makeId(),category:currentKind,dateTime:f.get("dateTime"),detail:f.get("detail")||"",mealType:f.get("mealType")||old?.mealType||"",mealDescription:currentKind==="Meals & Drinks"?(f.get("detail")||""):"",amount:f.get("amount")?Number(f.get("amount")):null,wallet:f.get("wallet")||"",destination:f.get("destination")||"",status:f.get("status")||"",endTime:f.get("endTime")||"",note:f.get("note")||"",expenseTransactionId:old?.expenseTransactionId||null};
  // Meal and travel costs are optional. If supplied, they also appear in Money as an expense.
  if(obj.amount && obj.wallet){
    const tid=obj.expenseTransactionId||makeId();
@@ -188,10 +203,12 @@ function renderHistory(){const q=(document.getElementById("historySearch").value
 function deleteRecord(id){if(confirm("Delete this record?")){const rec=data.records.find(x=>x.id===id);if(rec?.expenseTransactionId)data.transactions=data.transactions.filter(t=>t.id!==rec.expenseTransactionId);data.records=data.records.filter(x=>x.id!==id);persist();toast("Record deleted");}}
 function renderReports(){document.getElementById("reportRecords").textContent=data.records.length;document.getElementById("reportMeals").textContent=data.records.filter(x=>x.category==="Meals & Drinks").length;document.getElementById("reportTrips").textContent=data.records.filter(x=>x.category==="Travel").length;document.getElementById("reportIn").textContent=money(data.transactions.filter(x=>x.type==="in").reduce((a,x)=>a+x.amount,0));document.getElementById("reportOut").textContent=money(data.transactions.filter(x=>x.type==="out").reduce((a,x)=>a+x.amount,0));document.getElementById("categoryStats").innerHTML=data.categories.map(c=>`<div class="row" style="padding:7px 0"><span>${c.icon} ${esc(c.name)}</span><b>${data.records.filter(r=>r.category===c.name).length}</b></div>`).join("");}
 function addCategory(){const n=document.getElementById("newCategory").value.trim();if(!n)return;if(data.categories.some(c=>c.name.toLowerCase()===n.toLowerCase())){toast("Category already exists");return;}data.categories.push({name:n,icon:"✳️",desc:"Custom category"});document.getElementById("newCategory").value="";persist();toast("Category added");}
-function deleteCategory(n){if(confirm("Hide/delete this category? Existing records will remain in History.")){data.categories=data.categories.filter(c=>c.name!==n);persist();}}
-function renderSettings(){document.getElementById("nameInput").value=data.name||"";document.getElementById("themeSelect").value=data.theme||"light";document.getElementById("manageCategories").innerHTML=data.categories.map(c=>`<div class="row" style="padding:7px 0"><span>${c.icon} ${esc(c.name)}</span><button class="danger" onclick="deleteCategory('${esc(c.name)}')">Remove</button></div>`).join("");}
+function renameCategory(i){const c=data.categories[i];if(!c)return;const n=prompt("Rename category:",c.name);if(!n||!n.trim()||n.trim()===c.name)return;const next=n.trim();if(data.categories.some((x,j)=>j!==i&&x.name.toLowerCase()===next.toLowerCase())){toast("That category already exists");return;}const old=c.name;c.name=next;data.records.forEach(r=>{if(r.category===old)r.category=next;});persist();toast("Category renamed");}
+function deleteCategory(n){if(confirm("Remove this category from the Home screen? Existing records will remain in History.")){data.categories=data.categories.filter(c=>c.name!==n);persist();}}
+function renderSettings(){document.getElementById("nameInput").value=data.name||"";document.getElementById("themeSelect").value=data.theme||"light";document.getElementById("textSizeSelect").value=data.textSize||"medium";document.getElementById("manageCategories").innerHTML=data.categories.map((c,i)=>`<div class="row" style="padding:7px 0"><span>${c.icon} ${esc(c.name)}</span><div class="inline-actions"><button class="secondary" onclick="renameCategory(${i})">Rename</button><button class="danger" onclick="deleteCategory('${esc(c.name)}')">Remove</button></div></div>`).join("");}
+function restoreData(e){const file=e.target.files&&e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const incoming=JSON.parse(reader.result);if(!incoming||!Array.isArray(incoming.records)||!Array.isArray(incoming.transactions)||!Array.isArray(incoming.categories)||!Array.isArray(incoming.wallets))throw new Error("Invalid backup");if(!confirm("Restore this backup? Current LIFELOG data in this browser will be replaced."))return;data={...incoming};persist();toast("Backup restored");}catch(err){alert("This file does not look like a valid LIFELOG backup.");}finally{e.target.value="";}};reader.readAsText(file);}
 function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="lifelog-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();URL.revokeObjectURL(url);toast("Backup downloaded");}
-function renderAll(){document.body.dataset.theme=data.theme||"light";renderHome();renderMoney();renderHistory();renderReports();renderSettings();const filter=document.getElementById("historyFilter");const current=filter.value;filter.innerHTML='<option value="all">All categories</option>'+data.categories.map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("")+'<option value="Money">Money</option>';filter.value=current||"all";}
+function renderAll(){document.body.dataset.theme=data.theme||"light";applyTextSize();renderHome();renderMoney();renderHistory();renderReports();renderSettings();const filter=document.getElementById("historyFilter");const current=filter.value;filter.innerHTML='<option value="all">All categories</option>'+data.categories.map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("")+'<option value="Money">Money</option>';filter.value=current||"all";}
 function init(){document.getElementById("recordForm").onsubmit=saveRecord;renderAll();if(!data.name){setTimeout(()=>{const n=prompt("Welcome to LIFELOG! What should we call you?");if(n&&n.trim()){data.name=n.trim();persist();}},350);}if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./service-worker.js").catch(()=>{});}
 init();
 </script>

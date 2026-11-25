@@ -1,39 +1,22 @@
-# LIFELOG v1
+# LIFELOG v2.0
 
-A browser-based personal life recorder/PWA starter project.
+LIFELOG is an installable, mobile-friendly personal life recorder for Android and iPhone browsers.
 
-## Included in this first version
-- Personalized first-launch name and time-based greeting
-- Light, Dark and Original themes
-- Clickable categories and quick recording forms
-- Automatic current date/time, editable before saving
-- Sleep and Wake Up as separate quick actions
-- Meals and travel costs are optional
-- Travel modes and optional destination
-- Daily tasks, activities, health, social, learning and custom categories
-- Money section with Cash, GCash, Bank, cash-in, cash-out and transfers
-- Life History search, date/category filters, edit and delete for activity records
-- Basic reports and JSON backup export
-- PWA manifest and service worker for install/offline shell
+## What's new in v2.0
+- Added app-wide text size controls (Small, Medium, Large, Extra Large).
+- Added category renaming; existing records are updated when a category is renamed.
+- Renamed category management is available in Settings.
+- Improved Meals & Drinks form with a meal/drink description, meal type, optional cost, wallet, and notes.
+- Added JSON backup restore with validation and a replacement confirmation.
+- Added iOS Home Screen web-app metadata and Apple touch icon support.
+- Updated service worker cache version so deployed clients can receive the new release.
+- Existing localStorage key is retained to preserve current LIFELOG data on the same browser/device.
 
-## Important data note
-This version stores records in the browser's local storage on the device. It does not sync between devices. Export a JSON backup regularly. Clearing browser data can erase records.
+## Important limitations
+- Data remains stored locally in each browser/device. Android and iPhone do not automatically sync records.
+- Backup restore replaces the current browser's LIFELOG data; export a backup first.
+- Memories/photo and video storage, scheduled reminders, PIN/biometric lock, cloud sync, and advanced monthly/weekly reports are not included in this release yet. They require additional development and testing.
+- PWA installation requires HTTPS (GitHub Pages provides HTTPS). On iPhone, open the site in Safari, tap Share, then Add to Home Screen.
 
-## Test locally
-Open `index.html` in a modern browser. Some PWA features (install/offline service worker) require HTTPS or localhost.
-
-## Publish with GitHub Pages
-1. Create a new GitHub repository named `lifelog`.
-2. Upload all files from this folder to the repository root.
-3. In GitHub, open Settings → Pages.
-4. Choose Deploy from a branch, select `main` and `/ (root)`, then Save.
-5. Open the Pages URL on your Android phone in Chrome.
-6. Use Chrome's menu → Install app or Add to Home screen.
-
-## Next build steps
-- Improve wallet opening balances and transaction editing
-- Add full monthly/weekly report filters
-- Add Memories with IndexedDB attachment storage
-- Add reminder controls and optional PIN/biometric protection
-- Add backup import/restore and data validation
-- Test on Android screen sizes and offline behavior
+## Publish on GitHub Pages
+Upload the contents of this folder to the root of the existing `Lifelog` repository, replacing the previous files. Commit the changes. Keep the repository's GitHub Pages setting on `main` and `/(root)`.
