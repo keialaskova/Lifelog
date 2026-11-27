@@ -44,10 +44,6 @@ body[data-theme="bubu"]{background:linear-gradient(180deg,#c9f1ff 0,#eafaff 220p
 .bubu-theme .sleepbtn{min-height:150px;background:#fffaf3;display:flex;flex-direction:column;gap:5px}
 .bubu-theme .sleepbtn img{display:block;height:90px;width:100%;object-fit:contain}
 .record-character-art{display:none}.bubu-theme .record-character-art{display:block;width:100%;height:170px;object-fit:contain;background:linear-gradient(120deg,#fffaf2,#ffe8dc);border-radius:18px;margin:8px 0 14px}
-#bubuOutfitSettings{display:none}.bubu-theme #bubuOutfitSettings{display:block}.bubu-outfit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
-.bubu-outfit-option{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:8px;text-align:center;color:var(--text);font-size:11px}
-.bubu-outfit-option img{width:100%;height:72px;object-fit:contain;display:block}
-.bubu-outfit-option.selected{outline:2px solid #d58b79;background:#fff0e8}
 
 
 .bubu-outfit-tabs{display:flex;gap:7px;margin:8px 0;flex-wrap:wrap}
@@ -61,6 +57,14 @@ body[data-theme="bubu"]{background:linear-gradient(180deg,#c9f1ff 0,#eafaff 220p
 .bubu-selected-outfit img{width:54px;height:58px;object-fit:contain}
 .bubu-selected-outfit div{flex:1;min-width:0;color:#654538}
 .bubu-selected-outfit small{display:block;font-size:10px;color:#987d70}
+
+.category-icon-choice{display:flex;align-items:center;gap:10px;margin-top:12px;padding:9px;border:1px solid var(--line);border-radius:14px;background:var(--surface2)}
+.category-icon-choice .field{flex:1;min-width:0;margin:0}
+.category-sticker-preview{width:76px;height:76px;flex:none;object-fit:contain;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px}
+.sticker-picker-row{display:flex;align-items:center;gap:10px}
+.sticker-picker-row select{flex:1;min-width:0}
+.category-manage-actions{flex-wrap:wrap}
+.bubu-theme .category .character-art{object-fit:contain}
 </style>
 </head>
 <body data-theme="light">
@@ -71,7 +75,6 @@ body[data-theme="bubu"]{background:linear-gradient(180deg,#c9f1ff 0,#eafaff 220p
 <section id="page-home" class="page active">
   <div class="row"><div><h1 id="greeting">Welcome!</h1><div class="muted small" id="todayLabel"></div></div><span class="pill">Today</span></div>
   <div class="bubu-decor" id="homeBubuDecor"><video muted autoplay loop playsinline preload="metadata"><source src="assets/bubu-home.mp4" type="video/mp4"></video><div class="decor-copy">A little sunshine for your day ☀️<div class="muted small" style="font-weight:500">Make every little moment count.</div></div></div>
-  <div class="bubu-selected-outfit" id="bubuSelectedOutfit"></div>
   <div class="section card"><h2>Today at a glance</h2><div class="summary-grid">
     <div class="metric"><div class="emoji">🌙</div><strong id="sleepMetric">—</strong><span>Sleep</span></div>
     <div class="metric"><div class="emoji">🍽️</div><strong id="mealMetric">0</strong><span>Meals</span></div>
@@ -123,9 +126,6 @@ body[data-theme="bubu"]{background:linear-gradient(180deg,#c9f1ff 0,#eafaff 220p
   <div class="card section">
     <h2>Appearance</h2><div class="field"><label>Choose a theme</label><select id="themeSelect" onchange="setTheme(this.value)"><option value="light">Light</option><option value="dark">Dark</option><option value="original">Original</option><option value="bubu">Bubu & Dudu (Character Theme)</option></select></div>
   </div>
-  <div class="card section" id="bubuOutfitSettings">
-    <h2>Bubu & Dudu outfit choices</h2><p class="muted small">Choose a style for the Bubu & Dudu theme.</p><div id="bubuOutfitChoices" class="bubu-outfit-grid"></div>
-  </div>
   <div class="card section">
     <h2>Character animations</h2><label class="checkline"><input id="animationsEnabled" type="checkbox" onchange="setAnimationsEnabled(this.checked)"> Enable Bubu & Dudu animations</label><p class="muted small">Animations appear in the Bubu & Dudu theme on Home, loading, and empty History screens. Turn them off any time.</p>
   </div>
@@ -133,7 +133,7 @@ body[data-theme="bubu"]{background:linear-gradient(180deg,#c9f1ff 0,#eafaff 220p
     <h2>Text adjustment</h2><div class="field"><label>App text size</label><select id="textSizeSelect" onchange="setTextSize(this.value)"><option value="small">Small</option><option value="medium">Medium (Default)</option><option value="large">Large</option><option value="extra-large">Extra large</option></select></div><p class="muted small">Changes the overall interface size on this device.</p>
   </div>
   <div class="card section">
-    <h2>Manage categories</h2><div id="manageCategories"></div><div class="field"><label>New category name</label><input id="newCategory" placeholder="e.g. Shopping"></div><div class="field"><label>Choose category icon</label><select id="newCategoryIcon"><option>🛍️</option><option>🏠</option><option>💼</option><option>💰</option><option>🎮</option><option>🎯</option><option>📚</option><option>🍽️</option><option>☕</option><option>🚗</option><option>🚌</option><option>✈️</option><option>🏃</option><option>💚</option><option>👥</option><option>🎉</option><option>🎨</option><option>🐾</option><option>🌿</option><option>✳️</option></select></div><label class="checkline"><input id="newCategoryPayment" type="checkbox"> Enable optional payment field for this category</label><p class="muted small">When enabled, records in this category can include an optional amount and wallet. Leaving the amount blank is allowed.</p><button class="secondary" onclick="addCategory()">＋ Add category</button>
+    <h2>Manage categories</h2><p class="muted small">Choose a Bubu, Dudu, or Together sticker for each category. The selected sticker becomes that category’s picture in the Bubu & Dudu theme.</p><div id="manageCategories"></div><div class="field"><label>New category name</label><input id="newCategory" placeholder="e.g. Shopping"></div><div class="field"><label>Choose category icon</label><select id="newCategoryIcon"><option>🛍️</option><option>🏠</option><option>💼</option><option>💰</option><option>🎮</option><option>🎯</option><option>📚</option><option>🍽️</option><option>☕</option><option>🚗</option><option>🚌</option><option>✈️</option><option>🏃</option><option>💚</option><option>👥</option><option>🎉</option><option>🎨</option><option>🐾</option><option>🌿</option><option>✳️</option></select></div><div class="field"><label>Choose Bubu & Dudu character icon</label><div class="sticker-picker-row"><img id="newCategoryStickerPreview" class="category-sticker-preview" src="assets/bubu-dudu/stickers/54_daily_log_both.png" alt="Selected character icon"><select id="newCategorySticker" onchange="updateNewCategoryStickerPreview()"><option value="01_sleep_rest_white.png">Sleep Rest — Bubu</option><option value="02_sleep_rest_brown.png">Sleep Rest — Dudu</option><option value="03_sleep_rest_both.png">Sleep Rest — Together</option><option value="04_wake_up_white.png">Wake Up — Bubu</option><option value="05_wake_up_brown.png">Wake Up — Dudu</option><option value="06_wake_up_both.png">Wake Up — Together</option><option value="07_meal_eat_white.png">Meal Eat — Bubu</option><option value="08_meal_eat_brown.png">Meal Eat — Dudu</option><option value="09_meal_eat_both.png">Meal Eat — Together</option><option value="10_travel_ride_white.png">Travel Ride — Bubu</option><option value="11_travel_ride_brown.png">Travel Ride — Dudu</option><option value="12_travel_ride_both.png">Travel Ride — Together</option><option value="13_cash_in_white.png">Cash In — Bubu</option><option value="14_cash_in_brown.png">Cash In — Dudu</option><option value="15_cash_in_both.png">Cash In — Together</option><option value="16_cash_out_white.png">Cash Out — Bubu</option><option value="17_cash_out_brown.png">Cash Out — Dudu</option><option value="18_cash_out_both.png">Cash Out — Together</option><option value="19_expense_white.png">Expense — Bubu</option><option value="20_expense_brown.png">Expense — Dudu</option><option value="21_expense_both.png">Expense — Together</option><option value="22_income_white.png">Income — Bubu</option><option value="23_income_brown.png">Income — Dudu</option><option value="24_income_both.png">Income — Together</option><option value="25_task_todo_white.png">Task Todo — Bubu</option><option value="26_task_todo_brown.png">Task Todo — Dudu</option><option value="27_task_todo_both.png">Task Todo — Together</option><option value="28_work_job_white.png">Work Job — Bubu</option><option value="29_work_job_brown.png">Work Job — Dudu</option><option value="30_work_job_both.png">Work Job — Together</option><option value="31_study_white.png">Study — Bubu</option><option value="32_study_brown.png">Study — Dudu</option><option value="33_study_both.png">Study — Together</option><option value="34_exercise_white.png">Exercise — Bubu</option><option value="35_exercise_brown.png">Exercise — Dudu</option><option value="36_exercise_both.png">Exercise — Together</option><option value="37_shopping_white.png">Shopping — Bubu</option><option value="38_shopping_brown.png">Shopping — Dudu</option><option value="39_shopping_both.png">Shopping — Together</option><option value="40_health_meds_white.png">Health Meds — Bubu</option><option value="41_health_meds_brown.png">Health Meds — Dudu</option><option value="42_health_meds_both.png">Health Meds — Together</option><option value="43_leisure_white.png">Leisure — Bubu</option><option value="44_leisure_brown.png">Leisure — Dudu</option><option value="45_leisure_both.png">Leisure — Together</option><option value="46_note_journal_white.png">Note Journal — Bubu</option><option value="47_note_journal_brown.png">Note Journal — Dudu</option><option value="48_note_journal_both.png">Note Journal — Together</option><option value="49_goal_plan_white.png">Goal Plan — Bubu</option><option value="50_goal_plan_brown.png">Goal Plan — Dudu</option><option value="51_goal_plan_both.png">Goal Plan — Together</option><option value="52_daily_log_white.png">Daily Log — Bubu</option><option value="53_daily_log_brown.png">Daily Log — Dudu</option><option value="54_daily_log_both.png">Daily Log — Together</option></select></div><p class="muted small">Pick Bubu, Dudu, or both. This picture becomes the category icon in the Bubu & Dudu theme.</p></div><label class="checkline"><input id="newCategoryPayment" type="checkbox"> Enable optional payment field for this category</label><p class="muted small">When enabled, records in this category can include an optional amount and wallet. Leaving the amount blank is allowed.</p><button class="secondary" onclick="addCategory()">＋ Add category</button>
   </div>
   <div class="card section">
     <h2>Data export</h2><p class="muted small">Export activity and money history as a spreadsheet-friendly CSV file.</p><button class="secondary" onclick="exportCSV()">Export records as CSV</button>
@@ -216,27 +216,99 @@ function dateLabel(){return new Date().toLocaleDateString(undefined,{weekday:"lo
 const BUBU_ART={"Sleep": "01_sleep_rest_white.png", "Wake Up": "05_wake_up_brown.png", "Meals & Drinks": "07_meal_eat_white.png", "Travel": "11_travel_ride_brown.png", "Activities": "54_daily_log_both.png", "Daily Tasks": "25_task_todo_white.png", "Health & Personal Care": "41_health_meds_brown.png", "Social Life": "54_daily_log_both.png", "Working": "28_work_job_white.png", "Learning": "31_study_white.png", "Others": "54_daily_log_both.png", "Finance": "22_income_both.png", "Shopping": "37_shopping_white.png", "Rest": "43_leisure_both.png", "Drink": "07_meal_eat_white.png", "Exercise": "35_exercise_brown.png", "Hygiene": "40_health_meds_white.png", "Medication": "41_health_meds_brown.png", "Cash In": "13_cash_in_white.png", "Cash Out": "17_cash_out_brown.png", "Expense": "19_expense_white.png", "Income": "22_income_both.png", "Note": "46_note_journal_white.png", "Goal": "49_goal_plan_both.png", "Daily Log": "52_daily_log_white.png"};
 function artPath(category){return `assets/bubu-dudu/stickers/${BUBU_ART[category]||'54_daily_log_both.png'}`;}
 
-let outfitGroup="bubu";
-const OUTFIT_LABELS={beach:"Beach",bunny:"Bunny",casual:"Casual",chef:"Chef",default:"Classic",dinosaur:"Dinosaur",doctor:"Doctor",explorer:"Explorer",formal:"Formal",kimono:"Kimono",pajamas:"Pajamas",raincoat:"Raincoat",school:"School",sport:"Sport",student:"Student",travel:"Travel",winter:"Winter",work:"Work"};
-function renderBubuOutfits(){
- const host=document.getElementById("bubuOutfitChoices");if(!host)return;
- const groups=["bubu","dudu","together"];
- const groupLabels={bubu:"Bubu",dudu:"Dudu",together:"Together"};
- const keyProp={bubu:"bubuOutfit",dudu:"duduOutfit",together:"coupleOutfit"}[outfitGroup];
- const chosen=data[keyProp]||"casual";
- const files=Object.keys(OUTFIT_LABELS);
- host.innerHTML=`<div class="bubu-outfit-tabs">${groups.map(g=>`<button class="secondary ${outfitGroup===g?"selected":""}" onclick="setOutfitGroup('${g}')">${groupLabels[g]}</button>`).join("")}</div><div class="bubu-outfit-grid">${files.map(k=>`<button class="bubu-outfit-option ${chosen===k?"selected":""}" onclick="chooseBubuOutfit('${k}')"><img loading="lazy" src="assets/bubu-dudu/attire/${outfitGroup}/${k}.png" alt="${groupLabels[outfitGroup]} ${OUTFIT_LABELS[k]} outfit"><b>${OUTFIT_LABELS[k]}</b></button>`).join("")}</div>`;
- const preview=document.getElementById("bubuSelectedOutfit");
- if(preview){
-   const b=data.bubuOutfit||"casual", d=data.duduOutfit||"casual", c=data.coupleOutfit||"casual";
-   preview.innerHTML=`<img src="assets/bubu-dudu/attire/bubu/${b}.png" alt="Bubu outfit"><img src="assets/bubu-dudu/attire/dudu/${d}.png" alt="Dudu outfit"><div><b>Your Bubu & Dudu looks</b><small>Bubu: ${OUTFIT_LABELS[b]||b} · Dudu: ${OUTFIT_LABELS[d]||d}</small></div><img src="assets/bubu-dudu/attire/together/${c}.png" alt="Matching couple outfit">`;
-   preview.classList.toggle("visible",data.theme==="bubu");
- }
+const BUBU_STICKERS=[
+ {file:'01_sleep_rest_white.png',label:'Sleep Rest — Bubu'},
+ {file:'02_sleep_rest_brown.png',label:'Sleep Rest — Dudu'},
+ {file:'03_sleep_rest_both.png',label:'Sleep Rest — Together'},
+ {file:'04_wake_up_white.png',label:'Wake Up — Bubu'},
+ {file:'05_wake_up_brown.png',label:'Wake Up — Dudu'},
+ {file:'06_wake_up_both.png',label:'Wake Up — Together'},
+ {file:'07_meal_eat_white.png',label:'Meal Eat — Bubu'},
+ {file:'08_meal_eat_brown.png',label:'Meal Eat — Dudu'},
+ {file:'09_meal_eat_both.png',label:'Meal Eat — Together'},
+ {file:'10_travel_ride_white.png',label:'Travel Ride — Bubu'},
+ {file:'11_travel_ride_brown.png',label:'Travel Ride — Dudu'},
+ {file:'12_travel_ride_both.png',label:'Travel Ride — Together'},
+ {file:'13_cash_in_white.png',label:'Cash In — Bubu'},
+ {file:'14_cash_in_brown.png',label:'Cash In — Dudu'},
+ {file:'15_cash_in_both.png',label:'Cash In — Together'},
+ {file:'16_cash_out_white.png',label:'Cash Out — Bubu'},
+ {file:'17_cash_out_brown.png',label:'Cash Out — Dudu'},
+ {file:'18_cash_out_both.png',label:'Cash Out — Together'},
+ {file:'19_expense_white.png',label:'Expense — Bubu'},
+ {file:'20_expense_brown.png',label:'Expense — Dudu'},
+ {file:'21_expense_both.png',label:'Expense — Together'},
+ {file:'22_income_white.png',label:'Income — Bubu'},
+ {file:'23_income_brown.png',label:'Income — Dudu'},
+ {file:'24_income_both.png',label:'Income — Together'},
+ {file:'25_task_todo_white.png',label:'Task Todo — Bubu'},
+ {file:'26_task_todo_brown.png',label:'Task Todo — Dudu'},
+ {file:'27_task_todo_both.png',label:'Task Todo — Together'},
+ {file:'28_work_job_white.png',label:'Work Job — Bubu'},
+ {file:'29_work_job_brown.png',label:'Work Job — Dudu'},
+ {file:'30_work_job_both.png',label:'Work Job — Together'},
+ {file:'31_study_white.png',label:'Study — Bubu'},
+ {file:'32_study_brown.png',label:'Study — Dudu'},
+ {file:'33_study_both.png',label:'Study — Together'},
+ {file:'34_exercise_white.png',label:'Exercise — Bubu'},
+ {file:'35_exercise_brown.png',label:'Exercise — Dudu'},
+ {file:'36_exercise_both.png',label:'Exercise — Together'},
+ {file:'37_shopping_white.png',label:'Shopping — Bubu'},
+ {file:'38_shopping_brown.png',label:'Shopping — Dudu'},
+ {file:'39_shopping_both.png',label:'Shopping — Together'},
+ {file:'40_health_meds_white.png',label:'Health Meds — Bubu'},
+ {file:'41_health_meds_brown.png',label:'Health Meds — Dudu'},
+ {file:'42_health_meds_both.png',label:'Health Meds — Together'},
+ {file:'43_leisure_white.png',label:'Leisure — Bubu'},
+ {file:'44_leisure_brown.png',label:'Leisure — Dudu'},
+ {file:'45_leisure_both.png',label:'Leisure — Together'},
+ {file:'46_note_journal_white.png',label:'Note Journal — Bubu'},
+ {file:'47_note_journal_brown.png',label:'Note Journal — Dudu'},
+ {file:'48_note_journal_both.png',label:'Note Journal — Together'},
+ {file:'49_goal_plan_white.png',label:'Goal Plan — Bubu'},
+ {file:'50_goal_plan_brown.png',label:'Goal Plan — Dudu'},
+ {file:'51_goal_plan_both.png',label:'Goal Plan — Together'},
+ {file:'52_daily_log_white.png',label:'Daily Log — Bubu'},
+ {file:'53_daily_log_brown.png',label:'Daily Log — Dudu'},
+ {file:'54_daily_log_both.png',label:'Daily Log — Together'}
+];
+
+function defaultStickerFor(category){
+ const map={
+ "Sleep":"01_sleep_rest_white.png","Wake Up":"05_wake_up_brown.png",
+ "Meals & Drinks":"07_meal_eat_white.png","Travel":"11_travel_ride_brown.png",
+ "Activities":"54_daily_log_both.png","Daily Tasks":"25_task_todo_white.png",
+ "Health & Personal Care":"41_health_meds_brown.png","Social Life":"45_leisure_both.png",
+ "Working":"28_work_job_white.png","Learning":"31_study_white.png",
+ "Others":"54_daily_log_both.png","Finance":"24_income_both.png",
+ "Shopping":"37_shopping_white.png","Rest":"45_leisure_both.png",
+ "Drink":"07_meal_eat_white.png","Exercise":"35_exercise_brown.png",
+ "Hygiene":"40_health_meds_white.png","Medication":"41_health_meds_brown.png",
+ "Cash In":"13_cash_in_white.png","Cash Out":"17_cash_out_brown.png",
+ "Expense":"19_expense_white.png","Income":"24_income_both.png",
+ "Note":"46_note_journal_white.png","Goal":"51_goal_plan_both.png",
+ "Daily Log":"52_daily_log_white.png"
+ };
+ return map[category]||"54_daily_log_both.png";
 }
-function setOutfitGroup(g){outfitGroup=g;renderBubuOutfits();}
-function chooseBubuOutfit(v){
- const keyProp={bubu:"bubuOutfit",dudu:"duduOutfit",together:"coupleOutfit"}[outfitGroup];
- data[keyProp]=v;localStorage.setItem(KEY,JSON.stringify(data));renderBubuOutfits();toast("Outfit choice saved");
+function stickerForCategory(category){
+ const c=data.categories.find(x=>x.name===category);
+ return c?.characterSticker||defaultStickerFor(category);
+}
+function artPath(category){return "assets/bubu-dudu/stickers/"+stickerForCategory(category);}
+function stickerOptions(selected){
+ return BUBU_STICKERS.map(x=>`<option value="${x.file}" ${x.file===selected?"selected":""}>${x.label}</option>`).join("");
+}
+function setCategorySticker(i,file){
+ if(!data.categories[i])return;
+ data.categories[i].characterSticker=file;
+ persist();
+ toast("Character icon updated");
+}
+function updateNewCategoryStickerPreview(){
+ const sel=document.getElementById("newCategorySticker");
+ const img=document.getElementById("newCategoryStickerPreview");
+ if(sel&&img)img.src="assets/bubu-dudu/stickers/"+sel.value;
 }
 
 function renderHome(){
@@ -249,7 +321,7 @@ function renderHome(){
  let dur="—";if(sleep&&wake){let ms=new Date(wake.dateTime)-new Date(sleep.dateTime);if(ms>0)dur=(ms/3600000).toFixed(1)+"h";}
  document.getElementById("sleepMetric").textContent=dur;
  document.body.classList.toggle("bubu-theme",data.theme==="bubu");const decor=document.getElementById("homeBubuDecor");if(decor)decor.classList.toggle("hidden",!(data.theme==="bubu"&&data.animationsEnabled!==false));document.getElementById("categoryGrid").innerHTML=data.categories.filter(c=>c.visible!==false&&!c.archived).map(c=>`<button class="category" style="border-color:${c.color||"var(--line)"}" onclick="openRecord('${esc(c.name)}')"><img class="character-art" src="${artPath(c.name)}" alt="Bubu and Dudu ${esc(c.name)}"><span class="emoji">${c.icon||"✳️"}</span><b>${esc(c.name)}</b><small>${esc(c.desc||"Tap to record")}</small></button>`).join("");
- renderBubuOutfits();
+
 }
 function field(label,name,type="text",value="",extra=""){return `<div class="field"><label>${label}</label><input name="${name}" type="${type}" value="${esc(value)}" ${extra}></div>`;}
 function selectField(label,name,options,value=""){return `<div class="field"><label>${label}</label><select name="${name}">${options.map(o=>`<option ${o===value?"selected":""}>${esc(o)}</option>`).join("")}</select></div>`;}
@@ -314,7 +386,7 @@ function renderHistory(){const q=(document.getElementById("historySearch").value
  document.getElementById("historyList").innerHTML=summary+(filtered.length?filtered.map(x=>`<div class="listitem"><div class="listicon">${x.kind==="money"?"💸":(data.categories.find(c=>c.name===x.category)?.icon||"✳️")}</div><div class="grow"><b>${esc(x.detail||x.category)}</b><div class="muted small">${esc(x.category)} · ${esc(x.dateTime.replace("T"," "))}</div>${x.amount?`<div class="small">${x.paymentType==="in"?"Money received (Income) · ":x.paymentType==="out"?"Money spent (Expense) · ":""}${money(x.amount)}</div>`:""}</div>${x.kind==="record"?`<button class="secondary" onclick="openRecord('${esc(x.category)}','${x.id}')">Edit</button><button class="danger" onclick="deleteRecord('${x.id}')">×</button>`:"<span class=\"pill\">Money</span>"}</div>`).join(""):(data.theme==="bubu"&&data.animationsEnabled!==false?'<div class="empty bubu-empty"><video muted autoplay loop playsinline preload="metadata"><source src="assets/bubu-empty.mp4" type="video/mp4"></video>No matching records yet. Little moments are waiting to be recorded!</div>':'<div class="empty"><div class="emoji">🗂️</div>No matching records yet.</div>'));}
 function deleteRecord(id){if(confirm("Delete this record?")){const rec=data.records.find(x=>x.id===id);const linked=rec?.linkedTransactionId||rec?.expenseTransactionId;if(linked)data.transactions=data.transactions.filter(t=>t.id!==linked);data.records=data.records.filter(x=>x.id!==id);persist();toast("Record deleted");}}
 function renderReports(){document.getElementById("reportRecords").textContent=data.records.length;document.getElementById("reportMeals").textContent=data.records.filter(x=>x.category==="Meals & Drinks").length;document.getElementById("reportTrips").textContent=data.records.filter(x=>x.category==="Travel").length;document.getElementById("reportIn").textContent=money(data.transactions.filter(x=>x.type==="in").reduce((a,x)=>a+x.amount,0));document.getElementById("reportOut").textContent=money(data.transactions.filter(x=>x.type==="out").reduce((a,x)=>a+x.amount,0));document.getElementById("categoryStats").innerHTML=data.categories.map(c=>`<div class="row" style="padding:7px 0"><span>${c.icon} ${esc(c.name)}</span><b>${data.records.filter(r=>r.category===c.name).length}</b></div>`).join("");}
-function addCategory(){const n=document.getElementById("newCategory").value.trim();if(!n)return;if(data.categories.some(c=>c.name.toLowerCase()===n.toLowerCase())){toast("Category already exists");return;}const paymentEnabled=document.getElementById("newCategoryPayment").checked;const icon=document.getElementById("newCategoryIcon").value||"✳️";data.categories.push({name:n,icon,desc:"Custom category",paymentEnabled});document.getElementById("newCategory").value="";document.getElementById("newCategoryIcon").value="🛍️";document.getElementById("newCategoryPayment").checked=false;persist();toast("Category added");}
+function addCategory(){const n=document.getElementById("newCategory").value.trim();if(!n)return;if(data.categories.some(c=>c.name.toLowerCase()===n.toLowerCase())){toast("Category already exists");return;}const paymentEnabled=document.getElementById("newCategoryPayment").checked;const icon=document.getElementById("newCategoryIcon").value||"✳️";const characterSticker=document.getElementById("newCategorySticker")?.value||"54_daily_log_both.png";data.categories.push({name:n,icon,desc:"Custom category",paymentEnabled,characterSticker});document.getElementById("newCategory").value="";document.getElementById("newCategoryIcon").value="🛍️";document.getElementById("newCategoryPayment").checked=false;persist();toast("Category added");}
 function setCategoryIcon(i,icon){if(!data.categories[i])return;data.categories[i].icon=icon;persist();toast("Category icon updated");}
 function renameCategory(i){const c=data.categories[i];if(!c)return;const n=prompt("Rename category:",c.name);if(!n||!n.trim()||n.trim()===c.name)return;const next=n.trim();if(data.categories.some((x,j)=>j!==i&&x.name.toLowerCase()===next.toLowerCase())){toast("That category already exists");return;}const old=c.name;c.name=next;data.records.forEach(r=>{if(r.category===old)r.category=next;});persist();toast("Category renamed");}
 function deleteCategory(n){const c=data.categories.find(x=>x.name===n);if(!c)return;if(confirm("Archive this category? Existing records will remain in History and Reports. You can restore it later.")){c.archived=true;persist();toast("Category archived");}}
@@ -322,7 +394,28 @@ function restoreCategory(i){const c=data.categories[i];if(c){c.archived=false;pe
 function setCategoryColor(i,color){if(data.categories[i]){data.categories[i].color=color;persist();toast("Category color updated");}}
 function exportCSV(){const rows=[["Type","Category","Description","Date and time","Amount (PHP)","Wallet","Notes"]];data.records.forEach(r=>rows.push(["Record",r.category,r.detail||r.mealDescription||"",r.dateTime,r.amount??"",r.wallet||"",r.note||""]));data.transactions.forEach(t=>rows.push(["Money",t.type,t.note||"",t.dateTime,t.amount??"",t.wallet||((t.from||"")+" to "+(t.to||"")),""]));const csv=rows.map(row=>row.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")).join("\r\n");const blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="lifelog-records-"+new Date().toISOString().slice(0,10)+".csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast("CSV exported");}
 function moveCategory(i,delta){const j=i+delta;if(j<0||j>=data.categories.length)return;[data.categories[i],data.categories[j]]=[data.categories[j],data.categories[i]];persist();}
-function renderSettings(){document.getElementById("nameInput").value=data.name||"";document.getElementById("themeSelect").value=data.theme||"light";document.getElementById("textSizeSelect").value=data.textSize||"medium";document.getElementById("animationsEnabled").checked=data.animationsEnabled!==false;document.getElementById("manageCategories").innerHTML=data.categories.map((c,i)=>`<div class="card" style="padding:10px;margin:8px 0;${c.archived?"opacity:.65":""}"><div class="row"><span><b>${c.icon} ${esc(c.name)}</b><div class="muted small">${c.paymentEnabled?"Optional payment enabled":"No payment field"}</div></span><div class="inline-actions"><button class="secondary" aria-label="Move ${esc(c.name)} up" onclick="moveCategory(${i},-1)" ${i===0?"disabled":""}>↑</button><button class="secondary" aria-label="Move ${esc(c.name)} down" onclick="moveCategory(${i},1)" ${i===data.categories.length-1?"disabled":""}>↓</button></div></div><div class="inline-actions" style="margin-top:8px"><select aria-label="Change icon for ${esc(c.name)}" onchange="setCategoryIcon(${i},this.value)"><option value="${c.icon}" selected>${c.icon}</option>${["🛍️","🏠","💼","💰","🎮","🎯","📚","🍽️","☕","🚗","🚌","✈️","🏃","💚","👥","🎉","🎨","🐾","🌿","✳️"].filter(x=>x!==c.icon).map(x=>`<option value="${x}">${x}</option>`).join("")}</select><button class="secondary" onclick="renameCategory(${i})">Rename</button><input aria-label="Category color" type="color" value="${c.color||"#64748b"}" onchange="setCategoryColor(${i},this.value)" style="width:42px;height:36px;padding:2px;border:1px solid var(--line);border-radius:9px;background:var(--surface)">${c.archived?`<button class="secondary" onclick="restoreCategory(${i})">Restore</button>`:`<button class="danger" onclick="deleteCategory('${esc(c.name)}')">Archive</button>`}</div></div>`).join("");}
+function renderSettings(){
+ document.getElementById("nameInput").value=data.name||"";
+ document.getElementById("themeSelect").value=data.theme||"light";
+ document.getElementById("textSizeSelect").value=data.textSize||"medium";
+ document.getElementById("animationsEnabled").checked=data.animationsEnabled!==false;
+ document.getElementById("manageCategories").innerHTML=data.categories.map((c,i)=>{
+   const sticker=c.characterSticker||defaultStickerFor(c.name);
+   return `<div class="card category-manage-card" style="padding:10px;margin:8px 0;${c.archived?"opacity:.65":""}">
+    <div class="row"><span><b>${c.icon} ${esc(c.name)}</b><div class="muted small">${c.paymentEnabled?"Optional payment enabled":"No payment field"}</div></span>
+    <div class="inline-actions"><button class="secondary" aria-label="Move ${esc(c.name)} up" onclick="moveCategory(${i},-1)" ${i===0?"disabled":""}>↑</button><button class="secondary" aria-label="Move ${esc(c.name)} down" onclick="moveCategory(${i},1)" ${i===data.categories.length-1?"disabled":""}>↓</button></div></div>
+    <div class="category-icon-choice"><img class="category-sticker-preview" src="assets/bubu-dudu/stickers/${sticker}" alt="Selected Bubu or Dudu icon">
+      <div class="field"><label>Character icon for this category</label><select aria-label="Choose Bubu Dudu icon for ${esc(c.name)}" onchange="setCategorySticker(${i},this.value)">${stickerOptions(sticker)}</select></div>
+    </div>
+    <div class="inline-actions category-manage-actions" style="margin-top:8px">
+      <select aria-label="Emoji icon for ${esc(c.name)}" onchange="setCategoryIcon(${i},this.value)"><option value="${c.icon}" selected>${c.icon}</option>${["🛍️","🏠","💼","💰","🎮","🎯","📚","🍽️","☕","🚗","🚌","✈️","🏃","💚","👥","🎉","🎨","🐾","🌿","✳️"].filter(x=>x!==c.icon).map(x=>`<option value="${x}">${x}</option>`).join("")}</select>
+      <button class="secondary" onclick="renameCategory(${i})">Rename</button>
+      <input aria-label="Category color" type="color" value="${c.color||"#64748b"}" onchange="setCategoryColor(${i},this.value)" style="width:42px;height:36px;padding:2px;border:1px solid var(--line);border-radius:9px;background:var(--surface)">
+      ${c.archived?`<button class="secondary" onclick="restoreCategory(${i})">Restore</button>`:`<button class="danger" onclick="deleteCategory('${esc(c.name)}')">Archive</button>`}
+    </div></div>`;
+ }).join("");
+ updateNewCategoryStickerPreview();
+}
 function restoreData(e){const file=e.target.files&&e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const incoming=JSON.parse(reader.result);if(!incoming||!Array.isArray(incoming.records)||!Array.isArray(incoming.transactions)||!Array.isArray(incoming.categories)||!Array.isArray(incoming.wallets))throw new Error("Invalid backup");if(!confirm("Restore this backup? Current LIFELOG data in this browser will be replaced."))return;data={...incoming};persist();toast("Backup restored");}catch(err){alert("This file does not look like a valid LIFELOG backup.");}finally{e.target.value="";}};reader.readAsText(file);}
 function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="lifelog-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();URL.revokeObjectURL(url);toast("Backup downloaded");}
 const MEDIA_DB="lifelog_media_v2";
