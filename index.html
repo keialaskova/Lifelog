@@ -16,21 +16,51 @@
 :root{--bg:#f4f5f7;--surface:#fff;--surface2:#eef1f5;--text:#18212f;--muted:#6b7280;--line:#e3e7ed;--accent:#475569;--accent-soft:#e7ebf0;--green:#16845b;--red:#c24a4a;--shadow:0 8px 28px rgba(20,30,50,.07)}
 [data-theme="dark"]{--bg:#10151d;--surface:#1a2230;--surface2:#222d3d;--text:#f3f5f8;--muted:#a5afbd;--line:#303c4c;--accent:#cbd5e1;--accent-soft:#303b4b;--green:#65c99b;--red:#f08b8b;--shadow:0 8px 28px rgba(0,0,0,.2)}
 [data-theme="original"]{--bg:#eee8dc;--surface:#fbf7ee;--surface2:#e8dfcf;--text:#3c3429;--muted:#7b705f;--line:#ded3c1;--accent:#79664a;--accent-soft:#e8dfcf;--green:#477c5a;--red:#b45d50;--shadow:0 8px 28px rgba(70,55,30,.08)}
+[data-theme="bubu"]{--bg:#dff5fb;--surface:#fffaf2;--surface2:#ffedda;--text:#54392d;--muted:#927b6d;--line:#f0d8c7;--accent:#a96f48;--accent-soft:#ffe3bd;--green:#39865b;--red:#c85d55;--shadow:0 8px 24px rgba(111,145,153,.13)}
+body[data-theme="bubu"]{background:linear-gradient(180deg,#bceeff 0,#e8faff 240px,var(--bg) 440px)}
+.bubu-decor{display:none}.bubu-theme .bubu-decor{display:flex}.bubu-decor{align-items:center;justify-content:space-between;gap:12px;margin:12px 0 18px;padding:10px 14px;border:1px solid #f1d8c7;border-radius:20px;background:linear-gradient(135deg,#fffdf8,#ffeddf);overflow:hidden}.bubu-decor video{width:94px;height:82px;object-fit:contain;border-radius:14px;background:#fff;flex:none}.bubu-decor .decor-copy{font-weight:750;color:#704b39}.bubu-empty{display:none}.bubu-theme .bubu-empty{display:block}.bubu-empty video{width:132px;height:112px;object-fit:contain;background:#fff;border-radius:18px;display:block;margin:0 auto 8px}.bubu-loader{position:fixed;inset:0;z-index:30;background:rgba(220,246,252,.92);display:none;align-items:center;justify-content:center;flex-direction:column;color:#694b3b;font-weight:750}.bubu-loader.show{display:flex}.bubu-loader video{width:150px;height:130px;object-fit:contain;background:#fff;border-radius:22px}.bubu-theme .card,.bubu-theme .wallet,.bubu-theme .category,.bubu-theme .sleepbtn{border-color:#f0d8c7}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;transition:background .2s,color .2s;zoom:var(--ui-zoom,1)}
 button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:760px;margin:auto;min-height:100dvh;padding:env(safe-area-inset-top) 14px calc(84px + env(safe-area-inset-bottom))}
 header{display:flex;justify-content:space-between;align-items:center;padding:18px 2px 12px}.brand{font-size:22px;font-weight:850;letter-spacing:.08em}.subbrand{font-size:11px;color:var(--muted)}.iconbtn{border:1px solid var(--line);background:var(--surface);color:var(--text);width:42px;height:42px;border-radius:14px}
 h1{font-size:27px;line-height:1.15;margin:8px 0 4px}h2{font-size:17px;margin:0 0 12px}h3{font-size:15px;margin:0}.muted{color:var(--muted)}.small{font-size:12px}.section{margin:18px 0}.card{background:var(--surface);border:1px solid var(--line);border-radius:19px;padding:15px;box-shadow:var(--shadow)}.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.metric{background:var(--surface2);border-radius:14px;padding:12px 9px}.metric .emoji{font-size:20px}.metric strong{display:block;font-size:20px;margin-top:3px}.metric span{font-size:11px;color:var(--muted)}
 .category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.category{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:17px;padding:14px;text-align:left;min-height:104px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:7px}.category:active,.nav button:active{transform:scale(.98)}.category .emoji{font-size:24px}.category b{font-size:14px}.category small{font-size:11px;color:var(--muted)}
 .sleep-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.sleepbtn{background:var(--surface);border:1px solid var(--line);border-radius:17px;padding:14px;text-align:left;color:var(--text);box-shadow:var(--shadow)}.sleepbtn b{display:block;margin:7px 0 2px}.sleepbtn small{color:var(--muted)}
-.nav{position:fixed;z-index:5;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--line);padding:9px 8px calc(9px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);max-width:760px;margin:auto}.nav button{border:0;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;padding:5px 0}.nav button.active{color:var(--text);font-weight:800}.nav .navicon{font-size:19px}
+.nav{position:fixed;z-index:5;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--line);padding:9px 8px calc(9px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(6,1fr);max-width:760px;margin:auto}.nav button{border:0;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;padding:5px 0}.nav button.active{color:var(--text);font-weight:800}.nav .navicon{font-size:19px}
 .row{display:flex;align-items:center;justify-content:space-between;gap:10px}.stack{display:flex;flex-direction:column;gap:9px}.listitem{display:flex;align-items:center;gap:11px;padding:12px 0;border-bottom:1px solid var(--line)}.listitem:last-child{border:0}.listicon{width:40px;height:40px;border-radius:13px;background:var(--surface2);display:grid;place-items:center;font-size:19px;flex:none}.grow{flex:1;min-width:0}.amount{font-weight:800}.positive{color:var(--green)}.negative{color:var(--red)}
 .primary{background:var(--text);color:var(--bg);border:0;border-radius:13px;padding:12px 16px;font-weight:750}.secondary{background:var(--surface2);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:10px 13px;font-weight:650}.danger{color:var(--red);border:1px solid var(--line);background:var(--surface);border-radius:11px;padding:8px 10px}.full{width:100%}
-.field{display:flex;flex-direction:column;gap:6px;margin:12px 0}.field label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select,.field textarea,.search{width:100%;border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:12px;padding:11px 12px;outline:none}.field textarea{min-height:72px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus,.search:focus{border-color:var(--accent)}
+.checkline{display:flex;align-items:center;gap:9px;font-size:13px;margin:10px 0}.checkline input{width:auto}.field{display:flex;flex-direction:column;gap:6px;margin:12px 0}.field label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select,.field textarea,.search{width:100%;border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:12px;padding:11px 12px;outline:none}.field textarea{min-height:72px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus,.search:focus{border-color:var(--accent)}
 .modalback{position:fixed;inset:0;background:rgba(5,10,20,.55);z-index:10;display:none;align-items:flex-end;justify-content:center;padding:12px}.modalback.show{display:flex}.modal{background:var(--surface);color:var(--text);width:min(100%,560px);max-height:88dvh;overflow:auto;border-radius:23px;padding:19px;box-shadow:0 20px 60px #0004}.modalhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.close{border:0;background:var(--surface2);color:var(--text);width:34px;height:34px;border-radius:50%}
 .page{display:none}.page.active{display:block}.pill{background:var(--surface2);border-radius:99px;padding:6px 10px;font-size:11px;color:var(--muted)}.wallet-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.wallet{background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:13px}.wallet strong{display:block;font-size:18px;margin-top:7px}.tabs{display:flex;gap:7px;overflow:auto;margin:12px 0}.tabs button{white-space:nowrap}.empty{text-align:center;padding:26px 10px;color:var(--muted)}.empty .emoji{font-size:30px;margin-bottom:7px}
 .toast{position:fixed;z-index:20;left:50%;bottom:90px;transform:translateX(-50%);background:#18212f;color:#fff;padding:11px 16px;border-radius:99px;font-size:13px;display:none;box-shadow:var(--shadow)}.toast.show{display:block}
 hr{border:0;border-top:1px solid var(--line);margin:13px 0}.inline-actions{display:flex;gap:8px;flex-wrap:wrap}.hidden{display:none!important}
 @media(min-width:650px){.category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.app{padding-left:22px;padding-right:22px}.modalback{align-items:center}}
+
+[data-theme="bubu"]{--bg:#fff4eb;--surface:#fffdf9;--surface2:#ffeadf;--text:#54372d;--muted:#987d70;--line:#f2d4c5;--accent:#d58b79;--accent-soft:#ffe0d5;--shadow:0 8px 24px rgba(147,99,76,.10)}
+body[data-theme="bubu"]{background:linear-gradient(180deg,#c9f1ff 0,#eafaff 220px,#fff4eb 560px)}
+.category .character-art{display:none}.sleepbtn img{display:none}.bubu-theme .category{padding:9px;min-height:174px;border-radius:20px;background:linear-gradient(160deg,#fffefa,#fff1e6);overflow:hidden;gap:4px}
+.bubu-theme .category .character-art{width:100%;height:112px;object-fit:contain;display:block;border-radius:14px}
+.bubu-theme .category .emoji,.bubu-theme .sleepbtn .emoji{display:none}
+.bubu-theme .category b{font-size:13px;padding:0 4px}.bubu-theme .category small{font-size:10px;padding:0 4px}
+.bubu-theme .sleepbtn{min-height:150px;background:#fffaf3;display:flex;flex-direction:column;gap:5px}
+.bubu-theme .sleepbtn img{display:block;height:90px;width:100%;object-fit:contain}
+.record-character-art{display:none}.bubu-theme .record-character-art{display:block;width:100%;height:170px;object-fit:contain;background:linear-gradient(120deg,#fffaf2,#ffe8dc);border-radius:18px;margin:8px 0 14px}
+#bubuOutfitSettings{display:none}.bubu-theme #bubuOutfitSettings{display:block}.bubu-outfit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.bubu-outfit-option{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:8px;text-align:center;color:var(--text);font-size:11px}
+.bubu-outfit-option img{width:100%;height:72px;object-fit:contain;display:block}
+.bubu-outfit-option.selected{outline:2px solid #d58b79;background:#fff0e8}
+
+
+.bubu-outfit-tabs{display:flex;gap:7px;margin:8px 0;flex-wrap:wrap}
+.bubu-outfit-tabs button.selected{background:#f8d8ce;border-color:#d58b79;color:#54372d}
+.bubu-outfit-grid{grid-template-columns:repeat(3,minmax(0,1fr));}
+.bubu-outfit-option img{height:100px;object-fit:contain;background:#fff8f2;border-radius:10px}
+.bubu-theme .category .character-art{height:118px;object-fit:contain}
+
+.bubu-selected-outfit{display:none;align-items:center;gap:8px;padding:10px;margin:10px 0;background:#fffaf3;border:1px solid #f0d6c7;border-radius:18px}
+.bubu-selected-outfit.visible{display:flex}
+.bubu-selected-outfit img{width:54px;height:58px;object-fit:contain}
+.bubu-selected-outfit div{flex:1;min-width:0;color:#654538}
+.bubu-selected-outfit small{display:block;font-size:10px;color:#987d70}
 </style>
 </head>
 <body data-theme="light">
@@ -40,14 +70,16 @@ hr{border:0;border-top:1px solid var(--line);margin:13px 0}.inline-actions{displ
 <main>
 <section id="page-home" class="page active">
   <div class="row"><div><h1 id="greeting">Welcome!</h1><div class="muted small" id="todayLabel"></div></div><span class="pill">Today</span></div>
+  <div class="bubu-decor" id="homeBubuDecor"><video muted autoplay loop playsinline preload="metadata"><source src="assets/bubu-home.mp4" type="video/mp4"></video><div class="decor-copy">A little sunshine for your day ☀️<div class="muted small" style="font-weight:500">Make every little moment count.</div></div></div>
+  <div class="bubu-selected-outfit" id="bubuSelectedOutfit"></div>
   <div class="section card"><h2>Today at a glance</h2><div class="summary-grid">
     <div class="metric"><div class="emoji">🌙</div><strong id="sleepMetric">—</strong><span>Sleep</span></div>
     <div class="metric"><div class="emoji">🍽️</div><strong id="mealMetric">0</strong><span>Meals</span></div>
     <div class="metric"><div class="emoji">✨</div><strong id="activityMetric">0</strong><span>Activities</span></div>
   </div></div>
   <div class="section"><h2>Sleep & Rest</h2><div class="sleep-grid">
-    <button class="sleepbtn" onclick="openRecord('Sleep')"><span class="emoji">🌙</span><b>Sleep</b><small>Record bedtime</small></button>
-    <button class="sleepbtn" onclick="openRecord('Wake Up')"><span class="emoji">🌅</span><b>Wake Up</b><small>Record waking time</small></button>
+    <button class="sleepbtn" onclick="openRecord('Sleep')"><img src="assets/bubu-dudu/stickers/01_sleep_rest_white.png" alt="Bubu and Dudu sleeping"><span class="emoji">🌙</span><b>Sleep</b><small>Record bedtime</small></button>
+    <button class="sleepbtn" onclick="openRecord('Wake Up')"><img src="assets/bubu-dudu/stickers/05_wake_up_brown.png" alt="Bubu and Dudu waking up"><span class="emoji">🌅</span><b>Wake Up</b><small>Record waking time</small></button>
   </div></div>
   <div class="section"><h2>Daily Life Categories</h2><div class="category-grid" id="categoryGrid"></div></div>
 </section>
@@ -77,23 +109,42 @@ hr{border:0;border-top:1px solid var(--line);margin:13px 0}.inline-actions{displ
   <div class="card section"><h2>Records by category</h2><div id="categoryStats"></div></div>
 </section>
 
+<section id="page-memories" class="page">
+  <h1>Memories</h1><p class="muted small">Keep photos and videos of meaningful moments on this device.</p>
+  <div class="card section"><h2>Add a memory</h2><div class="field"><label>Title</label><input id="memoryTitle" placeholder="e.g. Family day"></div><div class="field"><label>Date</label><input id="memoryDate" type="date"></div><div class="field"><label>Photo or video</label><input id="memoryFile" type="file" accept="image/*,video/*"></div><button class="primary" onclick="addMemory()">Save memory</button><p class="muted small">Media is saved locally in this browser. Large videos may exceed device storage. Include media in a separate backup before changing devices.</p></div>
+  <div class="section" id="memoryList"></div>
+</section>
+
 <section id="page-settings" class="page">
   <h1>Settings</h1><p class="muted small">Make LIFELOG yours.</p>
   <div class="card section">
     <h2>Profile & greeting</h2><div class="field"><label>Your name</label><input id="nameInput" placeholder="Enter your name"></div><button class="primary" onclick="saveName()">Save name</button>
   </div>
   <div class="card section">
-    <h2>Appearance</h2><div class="field"><label>Choose a theme</label><select id="themeSelect" onchange="setTheme(this.value)"><option value="light">Light</option><option value="dark">Dark</option><option value="original">Original</option></select></div>
+    <h2>Appearance</h2><div class="field"><label>Choose a theme</label><select id="themeSelect" onchange="setTheme(this.value)"><option value="light">Light</option><option value="dark">Dark</option><option value="original">Original</option><option value="bubu">Bubu & Dudu (Character Theme)</option></select></div>
+  </div>
+  <div class="card section" id="bubuOutfitSettings">
+    <h2>Bubu & Dudu outfit choices</h2><p class="muted small">Choose a style for the Bubu & Dudu theme.</p><div id="bubuOutfitChoices" class="bubu-outfit-grid"></div>
+  </div>
+  <div class="card section">
+    <h2>Character animations</h2><label class="checkline"><input id="animationsEnabled" type="checkbox" onchange="setAnimationsEnabled(this.checked)"> Enable Bubu & Dudu animations</label><p class="muted small">Animations appear in the Bubu & Dudu theme on Home, loading, and empty History screens. Turn them off any time.</p>
   </div>
   <div class="card section">
     <h2>Text adjustment</h2><div class="field"><label>App text size</label><select id="textSizeSelect" onchange="setTextSize(this.value)"><option value="small">Small</option><option value="medium">Medium (Default)</option><option value="large">Large</option><option value="extra-large">Extra large</option></select></div><p class="muted small">Changes the overall interface size on this device.</p>
   </div>
   <div class="card section">
-    <h2>Manage categories</h2><div id="manageCategories"></div><div class="field"><label>New category name</label><input id="newCategory" placeholder="e.g. Gardening"></div><button class="secondary" onclick="addCategory()">＋ Add category</button>
+    <h2>Manage categories</h2><div id="manageCategories"></div><div class="field"><label>New category name</label><input id="newCategory" placeholder="e.g. Shopping"></div><div class="field"><label>Choose category icon</label><select id="newCategoryIcon"><option>🛍️</option><option>🏠</option><option>💼</option><option>💰</option><option>🎮</option><option>🎯</option><option>📚</option><option>🍽️</option><option>☕</option><option>🚗</option><option>🚌</option><option>✈️</option><option>🏃</option><option>💚</option><option>👥</option><option>🎉</option><option>🎨</option><option>🐾</option><option>🌿</option><option>✳️</option></select></div><label class="checkline"><input id="newCategoryPayment" type="checkbox"> Enable optional payment field for this category</label><p class="muted small">When enabled, records in this category can include an optional amount and wallet. Leaving the amount blank is allowed.</p><button class="secondary" onclick="addCategory()">＋ Add category</button>
+  </div>
+  <div class="card section">
+    <h2>Data export</h2><p class="muted small">Export activity and money history as a spreadsheet-friendly CSV file.</p><button class="secondary" onclick="exportCSV()">Export records as CSV</button>
   </div>
   <div class="card section">
     <h2>Backup & restore</h2><p class="muted small">Download a copy of your LIFELOG data or restore a previous LIFELOG JSON backup.</p><div class="inline-actions"><button class="primary" onclick="exportData()">Export backup</button><button class="secondary" onclick="document.getElementById('restoreFile').click()">Restore backup</button></div><input id="restoreFile" class="hidden" type="file" accept="application/json,.json" onchange="restoreData(event)"><p class="muted small">Restoring replaces the records currently stored in this browser. Export a backup first.</p>
   </div>
+  <div class="card section">
+    <h2>Reminders</h2><div class="field"><label>Reminder title</label><input id="reminderTitle" placeholder="e.g. Take a break"></div><div class="field"><label>Date and time</label><input id="reminderWhen" type="datetime-local"></div><div class="inline-actions"><button class="secondary" onclick="enableNotifications()">Enable notifications</button><button class="primary" onclick="addReminder()">Add reminder</button></div><div id="reminderList" class="section"></div><p class="muted small">Notifications are checked while LIFELOG is open. Browser and iPhone background notification support varies; this is not a guaranteed alarm.</p>
+  </div>
+  <div class="card section"><h2>Privacy lock</h2><div class="field"><label>Set or change app PIN</label><input id="privacyPin" type="password" inputmode="numeric" maxlength="8" placeholder="4–8 digit PIN"></div><div class="inline-actions"><button class="secondary" onclick="setPin()">Set PIN</button><button class="danger" onclick="removePin()">Remove PIN</button></div><p class="muted small">This is a basic app-entry PIN, not device-grade encryption. Anyone with access to browser storage may still access local data. Use your phone's own screen lock for stronger protection.</p></div>
   <div class="card section"><h2>About</h2><p class="muted small">LIFELOG Version 2.0. Your records are stored in this browser on this device. Export backups regularly.</p></div>
 </section>
 </main>
@@ -104,11 +155,13 @@ hr{border:0;border-top:1px solid var(--line);margin:13px 0}.inline-actions{displ
 <button data-page="money" onclick="showPage('money')"><span class="navicon">₱</span>Money</button>
 <button data-page="history" onclick="showPage('history')"><span class="navicon">◷</span>History</button>
 <button data-page="reports" onclick="showPage('reports')"><span class="navicon">▥</span>Reports</button>
+<button data-page="memories" onclick="showPage('memories')"><span class="navicon">♡</span>Memories</button>
 <button data-page="settings" onclick="showPage('settings')"><span class="navicon">⚙</span>Settings</button>
 </nav>
 
 <div class="modalback" id="modalBack" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="modalhead"><h2 id="modalTitle">New record</h2><button class="close" onclick="closeModal()">✕</button></div><form id="recordForm" onsubmit="saveRecord(event)"><div id="modalFields"></div><button class="primary full" type="submit">Submit & save</button></form></div></div>
 <div class="toast" id="toast"></div>
+<div class="bubu-loader" id="bubuLoader" aria-hidden="true"><video muted autoplay loop playsinline preload="metadata"><source src="assets/bubu-loading.mp4" type="video/mp4"></video><div style="margin-top:10px">Just a moment…</div></div>
 
 <script>
 const DEFAULT_CATEGORIES=[
@@ -123,6 +176,21 @@ const DEFAULT_CATEGORIES=[
 ];
 const KEY="lifelog_v1_data";
 let data=loadData(), editingId=null, currentKind=null;
+data.memories=data.memories||[];data.reminders=data.reminders||[];
+// Normalize legacy transaction labels so all screens calculate the same money movement.
+// Older builds may have stored income/expense/cashin/cashout instead of in/out.
+let transactionTypesChanged=false;
+data.transactions=(data.transactions||[]).map(t=>{
+ const raw=String(t.type||'').toLowerCase().replace(/[ _-]/g,'');
+ let type=t.type;
+ if(['income','cashin','received','moneyin'].includes(raw)) type='in';
+ else if(['expense','cashout','spent','moneyout'].includes(raw)) type='out';
+ const wallet=t.wallet||((type==='in')?t.to:((type==='out')?t.from:''))||'';
+ if(type!==t.type||wallet!==t.wallet)transactionTypesChanged=true;
+ return {...t,type,wallet};
+});
+if(transactionTypesChanged){try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}}
+
 // Requested category update: migrate the built-in Learning category to Working once.
 if(data.categories.some(c=>c.name==="Learning")&&!data.categories.some(c=>c.name==="Working")){
  const learning=data.categories.find(c=>c.name==="Learning");learning.name="Working";learning.icon="💼";learning.desc="Work and professional activities";
@@ -135,13 +203,42 @@ function nowLocal(){const d=new Date();return new Date(d.getTime()-d.getTimezone
 function money(n){return "₱"+Number(n||0).toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2});}
 function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200);}
-function showPage(p){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById("page-"+p).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.page===p));renderAll();window.scrollTo(0,0);}
-function setTheme(v){data.theme=v;document.body.dataset.theme=v;localStorage.setItem(KEY,JSON.stringify(data));}
+function showPage(p){if(data.theme==="bubu"&&data.animationsEnabled!==false){const loader=document.getElementById("bubuLoader");loader.classList.add("show");setTimeout(()=>loader.classList.remove("show"),520);}document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById("page-"+p).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.page===p));renderAll();window.scrollTo(0,0);}
+function setTheme(v){data.theme=v;document.body.dataset.theme=v;localStorage.setItem(KEY,JSON.stringify(data));renderAll();}
+function setAnimationsEnabled(v){data.animationsEnabled=!!v;localStorage.setItem(KEY,JSON.stringify(data));renderAll();toast(v?"Character animations enabled":"Character animations disabled");}
 function setTextSize(v){data.textSize=v;applyTextSize();localStorage.setItem(KEY,JSON.stringify(data));toast("Text size updated");}
 function applyTextSize(){const z={small:0.92,medium:1,large:1.10,"extra-large":1.20}[data.textSize||"medium"];document.body.style.setProperty("--ui-zoom",z);}
 function saveName(){data.name=document.getElementById("nameInput").value.trim();persist();toast("Name saved");}
 function greeting(){const h=new Date().getHours();return (h<12?"Good morning":h<18?"Good afternoon":"Good evening")+(data.name?", "+data.name:"") +"!";}
 function dateLabel(){return new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"});}
+
+
+const BUBU_ART={"Sleep": "01_sleep_rest_white.png", "Wake Up": "05_wake_up_brown.png", "Meals & Drinks": "07_meal_eat_white.png", "Travel": "11_travel_ride_brown.png", "Activities": "54_daily_log_both.png", "Daily Tasks": "25_task_todo_white.png", "Health & Personal Care": "41_health_meds_brown.png", "Social Life": "54_daily_log_both.png", "Working": "28_work_job_white.png", "Learning": "31_study_white.png", "Others": "54_daily_log_both.png", "Finance": "22_income_both.png", "Shopping": "37_shopping_white.png", "Rest": "43_leisure_both.png", "Drink": "07_meal_eat_white.png", "Exercise": "35_exercise_brown.png", "Hygiene": "40_health_meds_white.png", "Medication": "41_health_meds_brown.png", "Cash In": "13_cash_in_white.png", "Cash Out": "17_cash_out_brown.png", "Expense": "19_expense_white.png", "Income": "22_income_both.png", "Note": "46_note_journal_white.png", "Goal": "49_goal_plan_both.png", "Daily Log": "52_daily_log_white.png"};
+function artPath(category){return `assets/bubu-dudu/stickers/${BUBU_ART[category]||'54_daily_log_both.png'}`;}
+
+let outfitGroup="bubu";
+const OUTFIT_LABELS={beach:"Beach",bunny:"Bunny",casual:"Casual",chef:"Chef",default:"Classic",dinosaur:"Dinosaur",doctor:"Doctor",explorer:"Explorer",formal:"Formal",kimono:"Kimono",pajamas:"Pajamas",raincoat:"Raincoat",school:"School",sport:"Sport",student:"Student",travel:"Travel",winter:"Winter",work:"Work"};
+function renderBubuOutfits(){
+ const host=document.getElementById("bubuOutfitChoices");if(!host)return;
+ const groups=["bubu","dudu","together"];
+ const groupLabels={bubu:"Bubu",dudu:"Dudu",together:"Together"};
+ const keyProp={bubu:"bubuOutfit",dudu:"duduOutfit",together:"coupleOutfit"}[outfitGroup];
+ const chosen=data[keyProp]||"casual";
+ const files=Object.keys(OUTFIT_LABELS);
+ host.innerHTML=`<div class="bubu-outfit-tabs">${groups.map(g=>`<button class="secondary ${outfitGroup===g?"selected":""}" onclick="setOutfitGroup('${g}')">${groupLabels[g]}</button>`).join("")}</div><div class="bubu-outfit-grid">${files.map(k=>`<button class="bubu-outfit-option ${chosen===k?"selected":""}" onclick="chooseBubuOutfit('${k}')"><img loading="lazy" src="assets/bubu-dudu/attire/${outfitGroup}/${k}.png" alt="${groupLabels[outfitGroup]} ${OUTFIT_LABELS[k]} outfit"><b>${OUTFIT_LABELS[k]}</b></button>`).join("")}</div>`;
+ const preview=document.getElementById("bubuSelectedOutfit");
+ if(preview){
+   const b=data.bubuOutfit||"casual", d=data.duduOutfit||"casual", c=data.coupleOutfit||"casual";
+   preview.innerHTML=`<img src="assets/bubu-dudu/attire/bubu/${b}.png" alt="Bubu outfit"><img src="assets/bubu-dudu/attire/dudu/${d}.png" alt="Dudu outfit"><div><b>Your Bubu & Dudu looks</b><small>Bubu: ${OUTFIT_LABELS[b]||b} · Dudu: ${OUTFIT_LABELS[d]||d}</small></div><img src="assets/bubu-dudu/attire/together/${c}.png" alt="Matching couple outfit">`;
+   preview.classList.toggle("visible",data.theme==="bubu");
+ }
+}
+function setOutfitGroup(g){outfitGroup=g;renderBubuOutfits();}
+function chooseBubuOutfit(v){
+ const keyProp={bubu:"bubuOutfit",dudu:"duduOutfit",together:"coupleOutfit"}[outfitGroup];
+ data[keyProp]=v;localStorage.setItem(KEY,JSON.stringify(data));renderBubuOutfits();toast("Outfit choice saved");
+}
+
 function renderHome(){
  document.getElementById("greeting").textContent=greeting();document.getElementById("todayLabel").textContent=dateLabel();
  const today=new Date().toISOString().slice(0,10), r=data.records.filter(x=>(x.dateTime||"").slice(0,10)===today);
@@ -151,19 +248,24 @@ function renderHome(){
  const wake=r.filter(x=>x.category==="Wake Up").sort((a,b)=>b.dateTime.localeCompare(a.dateTime))[0];
  let dur="—";if(sleep&&wake){let ms=new Date(wake.dateTime)-new Date(sleep.dateTime);if(ms>0)dur=(ms/3600000).toFixed(1)+"h";}
  document.getElementById("sleepMetric").textContent=dur;
- document.getElementById("categoryGrid").innerHTML=data.categories.filter(c=>c.visible!==false).map(c=>`<button class="category" onclick="openRecord('${esc(c.name)}')"><span class="emoji">${c.icon||"✳️"}</span><b>${esc(c.name)}</b><small>${esc(c.desc||"Tap to record")}</small></button>`).join("");
+ document.body.classList.toggle("bubu-theme",data.theme==="bubu");const decor=document.getElementById("homeBubuDecor");if(decor)decor.classList.toggle("hidden",!(data.theme==="bubu"&&data.animationsEnabled!==false));document.getElementById("categoryGrid").innerHTML=data.categories.filter(c=>c.visible!==false&&!c.archived).map(c=>`<button class="category" style="border-color:${c.color||"var(--line)"}" onclick="openRecord('${esc(c.name)}')"><img class="character-art" src="${artPath(c.name)}" alt="Bubu and Dudu ${esc(c.name)}"><span class="emoji">${c.icon||"✳️"}</span><b>${esc(c.name)}</b><small>${esc(c.desc||"Tap to record")}</small></button>`).join("");
+ renderBubuOutfits();
 }
 function field(label,name,type="text",value="",extra=""){return `<div class="field"><label>${label}</label><input name="${name}" type="${type}" value="${esc(value)}" ${extra}></div>`;}
 function selectField(label,name,options,value=""){return `<div class="field"><label>${label}</label><select name="${name}">${options.map(o=>`<option ${o===value?"selected":""}>${esc(o)}</option>`).join("")}</select></div>`;}
 function openRecord(category,id=null){
  editingId=id;currentKind=category;const old=id?data.records.find(x=>x.id===id):null;
  document.getElementById("modalTitle").textContent=(old?"Edit ":"Record ")+category;
- let dt=old?.dateTime||nowLocal(), html=field("Date & time","dateTime","datetime-local",dt,'required');
+ let dt=old?.dateTime||nowLocal(), html=`<img class="record-character-art" src="${artPath(category)}" alt="Bubu and Dudu ${esc(category)}">`+field("Date & time","dateTime","datetime-local",dt,'required');
  if(category==="Sleep"||category==="Wake Up"){html+=`<div class="field"><label>Note (optional)</label><input name="note" value="${esc(old?.note||"")}" placeholder="Add a note"></div>`;}
- else if(category==="Meals & Drinks"){html+=selectField("Meal type","mealType",["Breakfast","Lunch","Dinner","Snack","Drink","Other"],old?.mealType||(["Breakfast","Lunch","Dinner","Snack","Drink","Other"].includes(old?.detail)?old.detail:"Breakfast"))+field("What did you eat or drink?","detail","text",old?.mealDescription||(!["Breakfast","Lunch","Dinner","Snack","Drink","Other"].includes(old?.detail)?old?.detail:""),'placeholder="e.g. rice and chicken, coffee, water"')+field("Cost (optional)","amount","number",old?.amount??"",'min="0" step="0.01" placeholder="Leave blank if no cost"')+selectField("Paid from (optional)","wallet",data.wallets,old?.wallet||data.wallets[0])+`<div class="field"><label>Notes (optional)</label><textarea name="note">${esc(old?.note||"")}</textarea></div>`;}
- else if(category==="Travel"){html+=selectField("Transport","detail",["Motorcycle","Jeepney","Tricycle","Bus","Taxi","Walking","Personal vehicle","Other"],old?.detail||"Motorcycle")+field("Destination (optional)","destination","text",old?.destination||"",'placeholder="Where did you go?"')+field("Fare / cost (optional)","amount","number",old?.amount??"",'min="0" step="0.01" placeholder="Leave blank if free or unknown"')+selectField("Paid from (optional)","wallet",data.wallets,old?.wallet||data.wallets[0]);}
+ else if(category==="Meals & Drinks"){html+=selectField("Meal type","mealType",["Breakfast","Lunch","Dinner","Snack","Drink","Other"],old?.mealType||(["Breakfast","Lunch","Dinner","Snack","Drink","Other"].includes(old?.detail)?old.detail:"Breakfast"))+field("What did you eat or drink?","detail","text",old?.mealDescription||(!["Breakfast","Lunch","Dinner","Snack","Drink","Other"].includes(old?.detail)?old?.detail:""),'placeholder="e.g. rice and chicken, coffee, water"')+`<div class="field"><label>Notes (optional)</label><textarea name="note">${esc(old?.note||"")}</textarea></div>`;}
+ else if(category==="Travel"){html+=selectField("Transport","detail",["Motorcycle","Jeepney","Tricycle","Bus","Taxi","Walking","Personal vehicle","Other"],old?.detail||"Motorcycle")+field("Destination (optional)","destination","text",old?.destination||"",'placeholder="Where did you go?"');}
  else if(category==="Daily Tasks"){html+=field("Task","detail","text",old?.detail||"",'required placeholder="What did you do?"')+selectField("Status","status",["Completed","Pending"],old?.status||"Completed");}
  else {html+=field(category==="Activities"?"Activity name":"Description","detail","text",old?.detail||"",'required placeholder="What happened?"')+field("End time (optional)","endTime","datetime-local",old?.endTime||"")+`<div class="field"><label>Notes (optional)</label><textarea name="note">${esc(old?.note||"")}</textarea></div>`;}
+ // Require an explicit direction so a received payment is never silently treated as an expense.
+ const oldLinked=old?(data.transactions.find(t=>t.id===(old.linkedTransactionId||old.expenseTransactionId))):null;
+ const savedType=old?.paymentType||oldLinked?.type||"";
+ html+=`<hr><h3>Payment (optional)</h3><div class="field"><label>Transaction type</label><select name="paymentType"><option value="" ${!savedType?"selected":""}>Choose: received or spent</option><option value="out" ${savedType==="out"?"selected":""}>Money spent (Expense)</option><option value="in" ${savedType==="in"?"selected":""}>Money received (Income)</option></select></div>`+field("Amount (optional)","amount","number",old?.amount??"",'min="0.01" step="0.01" placeholder="Leave blank if no transaction"')+selectField("Wallet receiving / paying (required when amount is entered)","wallet",["",...data.wallets],old?.wallet||"");
  document.getElementById("modalFields").innerHTML=html;document.getElementById("recordForm").onsubmit=saveRecord;document.getElementById("modalBack").classList.add("show");
 }
 function closeModal(){document.getElementById("modalBack").classList.remove("show");editingId=null;}
@@ -171,18 +273,25 @@ function makeId(){return (crypto&&crypto.randomUUID)?crypto.randomUUID():"id-"+D
 function saveRecord(e){
  e.preventDefault();
  const f=new FormData(e.target), old=editingId?data.records.find(x=>x.id===editingId):null;
- const obj={id:editingId||makeId(),category:currentKind,dateTime:f.get("dateTime"),detail:f.get("detail")||"",mealType:f.get("mealType")||old?.mealType||"",mealDescription:currentKind==="Meals & Drinks"?(f.get("detail")||""):"",amount:f.get("amount")?Number(f.get("amount")):null,wallet:f.get("wallet")||"",destination:f.get("destination")||"",status:f.get("status")||"",endTime:f.get("endTime")||"",note:f.get("note")||"",expenseTransactionId:old?.expenseTransactionId||null};
- // Meal and travel costs are optional. If supplied, they also appear in Money as an expense.
- if(obj.amount && obj.wallet){
-   const tid=obj.expenseTransactionId||makeId();
-   const tx={id:tid,type:"out",amount:obj.amount,dateTime:obj.dateTime,wallet:obj.wallet,note:(obj.category+": "+(obj.detail||obj.destination||"expense")),sourceRecordId:obj.id};
+ const linkedId=old?.linkedTransactionId||old?.expenseTransactionId||null;
+ const amountValue=f.get("amount")?Number(f.get("amount")):null;
+ if(amountValue>0 && !f.get("paymentType")){toast("Choose whether this is money received or spent");return;}
+ if(amountValue>0 && !f.get("wallet")){toast("Choose the wallet for this payment so its balance and reports can update");return;}
+ const obj={id:editingId||makeId(),category:currentKind,dateTime:f.get("dateTime"),detail:f.get("detail")||"",mealType:f.get("mealType")||old?.mealType||"",mealDescription:currentKind==="Meals & Drinks"?(f.get("detail")||""):"",amount:amountValue,wallet:f.get("wallet")||"",paymentType:f.get("paymentType")||"",destination:f.get("destination")||"",status:f.get("status")||"",endTime:f.get("endTime")||"",note:f.get("note")||"",linkedTransactionId:linkedId};
+ // A category payment can represent either money spent (expense) or money received (income).
+ // It is linked to the activity so edits update the same Money transaction.
+ if(Number(obj.amount)>0 && obj.wallet){
+   const tid=linkedId||makeId();
+   const tx={id:tid,type:obj.paymentType,amount:obj.amount,dateTime:obj.dateTime,wallet:obj.wallet,note:(obj.category+": "+(obj.detail||obj.mealDescription||obj.destination||(obj.paymentType==="in"?"money received":"money spent"))),sourceRecordId:obj.id,sourceCategory:obj.category};
    const ix=data.transactions.findIndex(t=>t.id===tid);
    if(ix>=0)data.transactions[ix]=tx;else data.transactions.push(tx);
-   obj.expenseTransactionId=tid;
- }else if(obj.expenseTransactionId){
-   data.transactions=data.transactions.filter(t=>t.id!==obj.expenseTransactionId);
-   obj.expenseTransactionId=null;
+   obj.linkedTransactionId=tid;
+ }else if(linkedId){
+   data.transactions=data.transactions.filter(t=>t.id!==linkedId);
+   obj.linkedTransactionId=null;
  }
+ // Retain compatibility with older records while moving to the generic linked transaction field.
+ delete obj.expenseTransactionId;
  if(editingId){data.records=data.records.map(x=>x.id===editingId?obj:x);}else{data.records.push(obj);}
  closeModal();persist();toast("Record saved");
 }
@@ -197,19 +306,39 @@ function saveMoney(e,type){e.preventDefault();const f=new FormData(e.target);con
 function addWallet(){const n=prompt("Name your new wallet (e.g. Maya):");if(n&&n.trim()&&!data.wallets.includes(n.trim())){data.wallets.push(n.trim());data.walletOpening=data.walletOpening||{};const opening=prompt("Opening balance for "+n.trim()+" (enter 0 if none):","0");data.walletOpening[n.trim()]=Math.max(0,Number(opening)||0);persist();toast("Wallet added");}}
 function renderMoney(){const b=balances(),total=Object.values(b).reduce((a,x)=>a+x,0),ins=data.transactions.filter(x=>x.type==="in").reduce((a,x)=>a+x.amount,0),outs=data.transactions.filter(x=>x.type==="out").reduce((a,x)=>a+x.amount,0);document.getElementById("totalBalance").textContent=money(total);document.getElementById("incomeTotal").textContent="Income "+money(ins);document.getElementById("expenseTotal").textContent="Expenses "+money(outs);
  document.getElementById("walletGrid").innerHTML=data.wallets.map(w=>`<div class="wallet"><span class="muted small">◈ ${esc(w)}</span><strong>${money(b[w]||0)}</strong></div>`).join("");
- const tx=[...data.transactions].sort((a,b)=>b.dateTime.localeCompare(a.dateTime)).slice(0,5);document.getElementById("recentMoney").innerHTML=tx.length?tx.map(t=>`<div class="listitem"><div class="listicon">💸</div><div class="grow"><b>${t.type==="in"?"Cash In":t.type==="out"?"Cash Out":"Transfer"}</b><div class="muted small">${esc(t.dateTime.replace("T"," "))} · ${esc(t.wallet||t.from+" → "+t.to)}</div></div><b class="${t.type==="in"?"positive":t.type==="out"?"negative":""}">${t.type==="in"?"+":t.type==="out"?"−":""}${money(t.amount)}</b></div>`).join(""):'<div class="empty">No transactions yet.</div>';
+ const tx=[...data.transactions].sort((a,b)=>b.dateTime.localeCompare(a.dateTime));document.getElementById("recentMoney").innerHTML=tx.length?tx.map(t=>`<div class="listitem"><div class="listicon">💸</div><div class="grow"><b>${t.sourceRecordId?esc(t.note):t.type==="in"?"Cash In":t.type==="out"?"Cash Out":"Transfer"}</b><div class="muted small">${esc(t.dateTime.replace("T"," "))} · ${esc(t.wallet||t.from+" → "+t.to)}</div></div><b class="${t.type==="in"?"positive":t.type==="out"?"negative":""}">${t.type==="in"?"+":t.type==="out"?"−":""}${money(t.amount)}</b></div>`).join(""):'<div class="empty">No transactions yet.</div>';
 }
-function renderHistory(){const q=(document.getElementById("historySearch").value||"").toLowerCase(),cat=document.getElementById("historyFilter").value,date=document.getElementById("historyDate").value;const all=[...data.records.map(x=>({...x,kind:"record"})),...data.transactions.map(x=>({...x,kind:"money",category:"Money",detail:x.type==="in"?"Cash In":x.type==="out"?"Cash Out":"Transfer"}))].sort((a,b)=>b.dateTime.localeCompare(a.dateTime));const filtered=all.filter(x=>(cat==="all"||x.category===cat)&&(!date||x.dateTime.slice(0,10)===date)&&(`${x.category} ${x.detail} ${x.note} ${x.destination||""}`).toLowerCase().includes(q));document.getElementById("historyList").innerHTML=filtered.length?filtered.map(x=>`<div class="listitem"><div class="listicon">${x.kind==="money"?"💸":(data.categories.find(c=>c.name===x.category)?.icon||"✳️")}</div><div class="grow"><b>${esc(x.detail||x.category)}</b><div class="muted small">${esc(x.category)} · ${esc(x.dateTime.replace("T"," "))}</div>${x.amount?`<div class="small">${money(x.amount)}</div>`:""}</div>${x.kind==="record"?`<button class="secondary" onclick="openRecord('${esc(x.category)}','${x.id}')">Edit</button><button class="danger" onclick="deleteRecord('${x.id}')">×</button>`:"<span class=\"pill\">Money</span>"}</div>`).join(""):'<div class="empty"><div class="emoji">🗂️</div>No matching records yet.</div>';}
-function deleteRecord(id){if(confirm("Delete this record?")){const rec=data.records.find(x=>x.id===id);if(rec?.expenseTransactionId)data.transactions=data.transactions.filter(t=>t.id!==rec.expenseTransactionId);data.records=data.records.filter(x=>x.id!==id);persist();toast("Record deleted");}}
+function renderHistory(){const q=(document.getElementById("historySearch").value||"").toLowerCase(),cat=document.getElementById("historyFilter").value,date=document.getElementById("historyDate").value;const linkedTransactionIds=new Set(data.records.map(r=>r.linkedTransactionId||r.expenseTransactionId).filter(Boolean));
+ const all=[...data.records.map(x=>({...x,paymentType:x.paymentType||data.transactions.find(t=>t.id===(x.linkedTransactionId||x.expenseTransactionId))?.type||"",kind:"record"})),...data.transactions.filter(t=>!linkedTransactionIds.has(t.id)&&!t.sourceRecordId).map(x=>({...x,kind:"money",category:"Money",detail:x.type==="in"?"Cash In":x.type==="out"?"Cash Out":"Transfer"}))].sort((a,b)=>b.dateTime.localeCompare(a.dateTime));const filtered=all.filter(x=>(cat==="all"||x.category===cat)&&(!date||x.dateTime.slice(0,10)===date)&&(`${x.category} ${x.detail} ${x.note} ${x.destination||""}`).toLowerCase().includes(q));
+ let summary="";if(cat!=="all"&&cat!=="Money"){const payments=data.records.filter(r=>r.category===cat&&Number(r.amount)>0&&(!date||r.dateTime.slice(0,10)===date)).map(r=>({amount:Number(r.amount),type:r.paymentType||data.transactions.find(t=>t.id===(r.linkedTransactionId||r.expenseTransactionId))?.type||""}));const received=payments.filter(p=>p.type==="in").reduce((a,p)=>a+p.amount,0),spent=payments.filter(p=>p.type==="out").reduce((a,p)=>a+p.amount,0),net=received-spent;summary=`<div class="card" style="margin-bottom:12px"><h2>${esc(cat)} · Money summary</h2><div class="summary-grid"><div class="metric"><span>Money received</span><strong class="positive" style="font-size:16px">${money(received)}</strong></div><div class="metric"><span>Money spent</span><strong class="negative" style="font-size:16px">${money(spent)}</strong></div><div class="metric"><span>Net amount</span><strong style="font-size:16px">${money(net)}</strong></div></div><div class="muted small" style="margin-top:8px">${date?"For "+esc(date):"All dates"} · ${payments.length} payment record${payments.length===1?"":"s"}</div></div>`;}
+ document.getElementById("historyList").innerHTML=summary+(filtered.length?filtered.map(x=>`<div class="listitem"><div class="listicon">${x.kind==="money"?"💸":(data.categories.find(c=>c.name===x.category)?.icon||"✳️")}</div><div class="grow"><b>${esc(x.detail||x.category)}</b><div class="muted small">${esc(x.category)} · ${esc(x.dateTime.replace("T"," "))}</div>${x.amount?`<div class="small">${x.paymentType==="in"?"Money received (Income) · ":x.paymentType==="out"?"Money spent (Expense) · ":""}${money(x.amount)}</div>`:""}</div>${x.kind==="record"?`<button class="secondary" onclick="openRecord('${esc(x.category)}','${x.id}')">Edit</button><button class="danger" onclick="deleteRecord('${x.id}')">×</button>`:"<span class=\"pill\">Money</span>"}</div>`).join(""):(data.theme==="bubu"&&data.animationsEnabled!==false?'<div class="empty bubu-empty"><video muted autoplay loop playsinline preload="metadata"><source src="assets/bubu-empty.mp4" type="video/mp4"></video>No matching records yet. Little moments are waiting to be recorded!</div>':'<div class="empty"><div class="emoji">🗂️</div>No matching records yet.</div>'));}
+function deleteRecord(id){if(confirm("Delete this record?")){const rec=data.records.find(x=>x.id===id);const linked=rec?.linkedTransactionId||rec?.expenseTransactionId;if(linked)data.transactions=data.transactions.filter(t=>t.id!==linked);data.records=data.records.filter(x=>x.id!==id);persist();toast("Record deleted");}}
 function renderReports(){document.getElementById("reportRecords").textContent=data.records.length;document.getElementById("reportMeals").textContent=data.records.filter(x=>x.category==="Meals & Drinks").length;document.getElementById("reportTrips").textContent=data.records.filter(x=>x.category==="Travel").length;document.getElementById("reportIn").textContent=money(data.transactions.filter(x=>x.type==="in").reduce((a,x)=>a+x.amount,0));document.getElementById("reportOut").textContent=money(data.transactions.filter(x=>x.type==="out").reduce((a,x)=>a+x.amount,0));document.getElementById("categoryStats").innerHTML=data.categories.map(c=>`<div class="row" style="padding:7px 0"><span>${c.icon} ${esc(c.name)}</span><b>${data.records.filter(r=>r.category===c.name).length}</b></div>`).join("");}
-function addCategory(){const n=document.getElementById("newCategory").value.trim();if(!n)return;if(data.categories.some(c=>c.name.toLowerCase()===n.toLowerCase())){toast("Category already exists");return;}data.categories.push({name:n,icon:"✳️",desc:"Custom category"});document.getElementById("newCategory").value="";persist();toast("Category added");}
+function addCategory(){const n=document.getElementById("newCategory").value.trim();if(!n)return;if(data.categories.some(c=>c.name.toLowerCase()===n.toLowerCase())){toast("Category already exists");return;}const paymentEnabled=document.getElementById("newCategoryPayment").checked;const icon=document.getElementById("newCategoryIcon").value||"✳️";data.categories.push({name:n,icon,desc:"Custom category",paymentEnabled});document.getElementById("newCategory").value="";document.getElementById("newCategoryIcon").value="🛍️";document.getElementById("newCategoryPayment").checked=false;persist();toast("Category added");}
+function setCategoryIcon(i,icon){if(!data.categories[i])return;data.categories[i].icon=icon;persist();toast("Category icon updated");}
 function renameCategory(i){const c=data.categories[i];if(!c)return;const n=prompt("Rename category:",c.name);if(!n||!n.trim()||n.trim()===c.name)return;const next=n.trim();if(data.categories.some((x,j)=>j!==i&&x.name.toLowerCase()===next.toLowerCase())){toast("That category already exists");return;}const old=c.name;c.name=next;data.records.forEach(r=>{if(r.category===old)r.category=next;});persist();toast("Category renamed");}
-function deleteCategory(n){if(confirm("Remove this category from the Home screen? Existing records will remain in History.")){data.categories=data.categories.filter(c=>c.name!==n);persist();}}
-function renderSettings(){document.getElementById("nameInput").value=data.name||"";document.getElementById("themeSelect").value=data.theme||"light";document.getElementById("textSizeSelect").value=data.textSize||"medium";document.getElementById("manageCategories").innerHTML=data.categories.map((c,i)=>`<div class="row" style="padding:7px 0"><span>${c.icon} ${esc(c.name)}</span><div class="inline-actions"><button class="secondary" onclick="renameCategory(${i})">Rename</button><button class="danger" onclick="deleteCategory('${esc(c.name)}')">Remove</button></div></div>`).join("");}
+function deleteCategory(n){const c=data.categories.find(x=>x.name===n);if(!c)return;if(confirm("Archive this category? Existing records will remain in History and Reports. You can restore it later.")){c.archived=true;persist();toast("Category archived");}}
+function restoreCategory(i){const c=data.categories[i];if(c){c.archived=false;persist();toast("Category restored");}}
+function setCategoryColor(i,color){if(data.categories[i]){data.categories[i].color=color;persist();toast("Category color updated");}}
+function exportCSV(){const rows=[["Type","Category","Description","Date and time","Amount (PHP)","Wallet","Notes"]];data.records.forEach(r=>rows.push(["Record",r.category,r.detail||r.mealDescription||"",r.dateTime,r.amount??"",r.wallet||"",r.note||""]));data.transactions.forEach(t=>rows.push(["Money",t.type,t.note||"",t.dateTime,t.amount??"",t.wallet||((t.from||"")+" to "+(t.to||"")),""]));const csv=rows.map(row=>row.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")).join("\r\n");const blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="lifelog-records-"+new Date().toISOString().slice(0,10)+".csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast("CSV exported");}
+function moveCategory(i,delta){const j=i+delta;if(j<0||j>=data.categories.length)return;[data.categories[i],data.categories[j]]=[data.categories[j],data.categories[i]];persist();}
+function renderSettings(){document.getElementById("nameInput").value=data.name||"";document.getElementById("themeSelect").value=data.theme||"light";document.getElementById("textSizeSelect").value=data.textSize||"medium";document.getElementById("animationsEnabled").checked=data.animationsEnabled!==false;document.getElementById("manageCategories").innerHTML=data.categories.map((c,i)=>`<div class="card" style="padding:10px;margin:8px 0;${c.archived?"opacity:.65":""}"><div class="row"><span><b>${c.icon} ${esc(c.name)}</b><div class="muted small">${c.paymentEnabled?"Optional payment enabled":"No payment field"}</div></span><div class="inline-actions"><button class="secondary" aria-label="Move ${esc(c.name)} up" onclick="moveCategory(${i},-1)" ${i===0?"disabled":""}>↑</button><button class="secondary" aria-label="Move ${esc(c.name)} down" onclick="moveCategory(${i},1)" ${i===data.categories.length-1?"disabled":""}>↓</button></div></div><div class="inline-actions" style="margin-top:8px"><select aria-label="Change icon for ${esc(c.name)}" onchange="setCategoryIcon(${i},this.value)"><option value="${c.icon}" selected>${c.icon}</option>${["🛍️","🏠","💼","💰","🎮","🎯","📚","🍽️","☕","🚗","🚌","✈️","🏃","💚","👥","🎉","🎨","🐾","🌿","✳️"].filter(x=>x!==c.icon).map(x=>`<option value="${x}">${x}</option>`).join("")}</select><button class="secondary" onclick="renameCategory(${i})">Rename</button><input aria-label="Category color" type="color" value="${c.color||"#64748b"}" onchange="setCategoryColor(${i},this.value)" style="width:42px;height:36px;padding:2px;border:1px solid var(--line);border-radius:9px;background:var(--surface)">${c.archived?`<button class="secondary" onclick="restoreCategory(${i})">Restore</button>`:`<button class="danger" onclick="deleteCategory('${esc(c.name)}')">Archive</button>`}</div></div>`).join("");}
 function restoreData(e){const file=e.target.files&&e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const incoming=JSON.parse(reader.result);if(!incoming||!Array.isArray(incoming.records)||!Array.isArray(incoming.transactions)||!Array.isArray(incoming.categories)||!Array.isArray(incoming.wallets))throw new Error("Invalid backup");if(!confirm("Restore this backup? Current LIFELOG data in this browser will be replaced."))return;data={...incoming};persist();toast("Backup restored");}catch(err){alert("This file does not look like a valid LIFELOG backup.");}finally{e.target.value="";}};reader.readAsText(file);}
 function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="lifelog-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();URL.revokeObjectURL(url);toast("Backup downloaded");}
-function renderAll(){document.body.dataset.theme=data.theme||"light";applyTextSize();renderHome();renderMoney();renderHistory();renderReports();renderSettings();const filter=document.getElementById("historyFilter");const current=filter.value;filter.innerHTML='<option value="all">All categories</option>'+data.categories.map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("")+'<option value="Money">Money</option>';filter.value=current||"all";}
-function init(){document.getElementById("recordForm").onsubmit=saveRecord;renderAll();if(!data.name){setTimeout(()=>{const n=prompt("Welcome to LIFELOG! What should we call you?");if(n&&n.trim()){data.name=n.trim();persist();}},350);}if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./service-worker.js").catch(()=>{});}
+const MEDIA_DB="lifelog_media_v2";
+function mediaDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(MEDIA_DB,1);req.onupgradeneeded=()=>req.result.createObjectStore("files");req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}
+async function addMemory(){const file=document.getElementById("memoryFile").files[0],title=document.getElementById("memoryTitle").value.trim();if(!file){toast("Choose a photo or video first");return;}if(file.size>80*1024*1024){toast("Please choose a file smaller than 80 MB");return;}try{const db=await mediaDB(),id=makeId(),tx=db.transaction("files","readwrite");tx.objectStore("files").put(file,id);await new Promise((res,rej)=>{tx.oncomplete=res;tx.onerror=()=>rej(tx.error);});data.memories.unshift({id,title:title||file.name,date:document.getElementById("memoryDate").value||new Date().toISOString().slice(0,10),type:file.type.startsWith("video/")?"video":"image",name:file.name});persist();document.getElementById("memoryTitle").value="";document.getElementById("memoryFile").value="";toast("Memory saved on this device");}catch(e){toast("Could not save media. Check device storage.");}}
+async function renderMemories(){const host=document.getElementById("memoryList");if(!host)return;if(!data.memories.length){host.innerHTML='<div class="card empty">No memories saved yet.</div>';return;}host.innerHTML="";for(const m of data.memories){let url="";try{const db=await mediaDB(),tx=db.transaction("files","readonly"),blob=await new Promise((res,rej)=>{const r=tx.objectStore("files").get(m.id);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});if(blob)url=URL.createObjectURL(blob);}catch(e){}const media=url?(m.type==="video"?`<video controls playsinline style="width:100%;max-height:260px;border-radius:12px" src="${url}"></video>`:`<img alt="${esc(m.title)}" src="${url}" style="width:100%;max-height:260px;object-fit:cover;border-radius:12px">`):'<p class="muted small">Media file unavailable on this device.</p>';host.insertAdjacentHTML("beforeend",`<div class="card section">${media}<div class="row" style="margin-top:9px"><div><b>${esc(m.title)}</b><div class="muted small">${esc(m.date)} · ${esc(m.name)}</div></div><button class="danger" onclick="deleteMemory('${m.id}')">Delete</button></div></div>`);}}
+async function deleteMemory(id){if(!confirm("Delete this memory and its media?"))return;try{const db=await mediaDB(),tx=db.transaction("files","readwrite");tx.objectStore("files").delete(id);}catch(e){}data.memories=data.memories.filter(m=>m.id!==id);persist();toast("Memory deleted");}
+async function enableNotifications(){if(!("Notification" in window)){toast("Notifications are not supported here");return;}const p=await Notification.requestPermission();toast(p==="granted"?"Notifications enabled":"Notification permission not granted");}
+function addReminder(){const title=document.getElementById("reminderTitle").value.trim(),when=document.getElementById("reminderWhen").value;if(!title||!when){toast("Enter a title and date/time");return;}data.reminders.push({id:makeId(),title,when,done:false});persist();document.getElementById("reminderTitle").value="";toast("Reminder saved");checkReminders();}
+function deleteReminder(id){data.reminders=data.reminders.filter(r=>r.id!==id);persist();}
+function checkReminders(){const now=Date.now();data.reminders.filter(r=>!r.done&&new Date(r.when).getTime()<=now).forEach(r=>{if("Notification" in window&&Notification.permission==="granted")new Notification("LIFELOG reminder",{body:r.title});else toast("Reminder: "+r.title);r.done=true;});localStorage.setItem(KEY,JSON.stringify(data));}
+function renderReminders(){const el=document.getElementById("reminderList");if(!el)return;el.innerHTML=data.reminders.length?data.reminders.sort((a,b)=>a.when.localeCompare(b.when)).map(r=>`<div class="listitem"><div class="grow"><b>${esc(r.title)}</b><div class="muted small">${esc(r.when.replace("T"," "))}${r.done?" · Done":""}</div></div><button class="danger" onclick="deleteReminder('${r.id}')">×</button></div>`).join(""):'<p class="muted small">No reminders yet.</p>'; }
+function setPin(){const v=document.getElementById("privacyPin").value;if(!/^\d{4,8}$/.test(v)){toast("Choose a 4–8 digit PIN");return;}data.pin=v;persist();document.getElementById("privacyPin").value="";toast("PIN saved");}
+function removePin(){if(!data.pin){toast("No PIN is set");return;}const v=prompt("Enter current PIN to remove it:");if(v===data.pin){delete data.pin;persist();toast("PIN removed");}else toast("Incorrect PIN");}
+function renderAll(){document.body.dataset.theme=data.theme||"light";document.body.classList.toggle("bubu-theme",data.theme==="bubu");applyTextSize();renderHome();renderMoney();renderHistory();renderReports();renderSettings();renderReminders();if(document.getElementById("page-memories")?.classList.contains("active"))renderMemories();checkReminders();const filter=document.getElementById("historyFilter");const current=filter.value;filter.innerHTML='<option value="all">All categories</option>'+data.categories.filter(c=>!c.archived).map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("")+'<option value="Money">Money</option>';filter.value=current||"all";}
+function init(){document.getElementById("recordForm").onsubmit=saveRecord;if(data.pin){const entered=prompt("Enter your LIFELOG PIN");if(entered!==data.pin){document.body.innerHTML="<main style='font:16px system-ui;padding:32px;text-align:center'><h2>LIFELOG is locked</h2><p>Reload the page to try again.</p></main>";return;}}renderAll();if(!data.name){setTimeout(()=>{const n=prompt("Welcome to LIFELOG! What should we call you?");if(n&&n.trim()){data.name=n.trim();persist();}},350);}if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./service-worker.js").catch(()=>{});}
 init();
 </script>
 </body></html>

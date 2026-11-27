@@ -1,22 +1,21 @@
-# LIFELOG v2.0
+# LIFELOG v2.9 — User 54 HD Sticker Pack
 
-LIFELOG is an installable, mobile-friendly personal life recorder for Android and iPhone browsers.
+This build uses the user's uploaded `cute_bear_stickers_54_HD.zip` as the source of the activity artwork.
 
-## What's new in v2.0
-- Added app-wide text size controls (Small, Medium, Large, Extra Large).
-- Added category renaming; existing records are updated when a category is renamed.
-- Renamed category management is available in Settings.
-- Improved Meals & Drinks form with a meal/drink description, meal type, optional cost, wallet, and notes.
-- Added JSON backup restore with validation and a replacement confirmation.
-- Added iOS Home Screen web-app metadata and Apple touch icon support.
-- Updated service worker cache version so deployed clients can receive the new release.
-- Existing localStorage key is retained to preserve current LIFELOG data on the same browser/device.
+## Included and integrated
+- All 54 supplied PNG stickers are included in `assets/bubu-dudu/stickers/`.
+- The Bubu & Dudu theme now uses the supplied activity-specific artwork on category cards and record forms.
+- Sleep uses the white bear; Wake Up uses the brown bear; shared activities use the pair.
+- Meals, travel, cash in, cash out, expenses, income, tasks, work, study, exercise, shopping, health, leisure, notes, goals and daily log have matching sticker selections.
+- Sleep and Wake Up quick-record cards use the matching supplied stickers.
+- Existing Bubu/Dudu/Together outfit gallery and other themes remain in place.
+- Offline cache version updated and all 54 supplied stickers are precached.
 
-## Important limitations
-- Data remains stored locally in each browser/device. Android and iPhone do not automatically sync records.
-- Backup restore replaces the current browser's LIFELOG data; export a backup first.
-- Memories/photo and video storage, scheduled reminders, PIN/biometric lock, cloud sync, and advanced monthly/weekly reports are not included in this release yet. They require additional development and testing.
-- PWA installation requires HTTPS (GitHub Pages provides HTTPS). On iPhone, open the site in Safari, tap Share, then Add to Home Screen.
+## Test
+1. Back up LIFELOG data from Settings.
+2. Extract this ZIP.
+3. Upload the contents of `lifelog_v2` to the GitHub Pages repository root.
+4. Choose Settings > Appearance > Bubu & Dudu (Character Theme).
+5. Check category cards, record forms, Sleep/Wake Up quick actions, and outfit gallery.
 
-## Publish on GitHub Pages
-Upload the contents of this folder to the root of the existing `Lifelog` repository, replacing the previous files. Commit the changes. Keep the repository's GitHub Pages setting on `main` and `/(root)`.
+The 54 supplied stickers are RGBA PNGs and retain their transparent backgrounds.
